@@ -121,6 +121,18 @@
   .ph-theme { font-size:13px; font-weight:800; color:var(--pur); text-transform:uppercase; letter-spacing:.03em; margin:16px 0 6px; }
   .search { width:100%; border:1px solid #e6e8ef; border-radius:10px; padding:10px 14px; font-size:14px; font-family:inherit; margin-bottom:12px; }
   .search:focus { outline:none; border-color:#b9c4ff; }
+  .spk { border:none; background:#eef2ff; color:var(--blue); border-radius:8px; width:26px; height:26px; cursor:pointer; font-size:13px; line-height:1; padding:0; vertical-align:middle; margin-left:4px; }
+  .spk:hover { background:#dde4ff; }
+  .spk:active { transform:scale(.92); }
+  .link-skip { background:none; border:none; color:#9ca3af; font-size:13px; cursor:pointer; text-decoration:underline; font-family:inherit; padding:6px; }
+  .link-skip:hover { color:#6b7280; }
+  .fb .expl { display:block; margin-top:4px; }
+  .vocab-card { text-align:center; padding:30px 22px; }
+  .vocab-word { font-size:34px; font-weight:800; margin:2px 0 2px; }
+  .vocab-pos { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#8a5cff; font-weight:700; }
+  .vocab-mean { font-size:18px; margin:14px 0 6px; color:#1d2433; }
+  .vocab-ex { font-size:15px; color:#374151; font-style:italic; background:#f7f9ff; border-radius:10px; padding:12px 14px; margin:14px 0; }
+  .spk-big { border:none; background:linear-gradient(135deg,var(--blue),var(--pur)); color:#fff; border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
 </style>
 </head>
 <body>
@@ -155,6 +167,7 @@
     <button data-tab="quiz">✍️ Esercizi</button>
     <button data-tab="tips">💡 Suggerimenti</button>
     <button data-tab="res">📚 Risorse</button>
+    <button data-tab="vocab">🗣️ Vocaboli</button>
   </div>
 
   <div id="view"></div>
@@ -1367,6 +1380,141 @@ window.CURRICULUM.C2 = [
   }
   );
 })();
+(function(){
+  function add(id,qs){ var L=window.CURRICULUM.A1; var t=L.find(function(x){return x.id===id;}); if(t) t.qz=t.qz.concat(qs); }
+  add('a1-tobe',[
+    {ty:'fill', q:'Completa con TO BE:', s:'I ___ a student.', a:'am', acc:["'m"], e:'I → am.'},
+    {ty:'fill', q:'Completa con TO BE:', s:'You ___ very kind.', a:'are', acc:["'re"], e:'you → are.'},
+    {ty:'mc', q:'My brother ___ tall.', o:['am','is','are','be'], a:1, e:'he → is.'},
+    {ty:'fill', q:'Completa la negazione:', s:'We ___ not ready.', a:'are', acc:["'re"], e:'we → are.'},
+    {ty:'mc', q:'___ they your friends?', o:['Am','Is','Are','Be'], a:2, e:'they → are.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Lei è felice.', a:'She is happy.', acc:["She's happy."], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ho fame. (essere)', a:'I am hungry.', acc:["I'm hungry."], e:'fame → be hungry.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I is tired.', a:'I am tired.', acc:["I'm tired."], e:'I → am.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'They is students.', a:'They are students.', acc:[], e:'they → are.'},
+    {ty:'fill', q:'Completa la domanda:', s:'___ I late?', a:'Am', acc:[], e:'I → Am.'}
+  ]);
+  add('a1-presentsimple',[
+    {ty:'fill', q:'Completa (3ª persona):', s:'She ___ (live) in London.', a:'lives', acc:[], e:'live → lives.'},
+    {ty:'fill', q:'Completa la domanda:', s:'___ he like pizza?', a:'Does', acc:[], e:'he → Does.'},
+    {ty:'fill', q:'Negazione:', s:'We ___ (not/work) on Sundays.', a:"don't work", acc:['do not work'], e:'we → don\'t.'},
+    {ty:'mc', q:'They ___ tea every day.', o:['drinks','drink','are drink','drinking'], a:1, e:'they → drink.'},
+    {ty:'fill', q:'Completa (3ª persona):', s:'My dad ___ (do) the cooking.', a:'does', acc:[], e:'do → does.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Lei studia ogni giorno.', a:'She studies every day.', acc:[], e:'study → studies.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Loro non parlano italiano.', a:"They don't speak Italian.", acc:['They do not speak Italian.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'He go to school by bus.', a:'He goes to school by bus.', acc:[], e:'3ª persona → goes.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'Does she likes coffee?', a:'Does she like coffee?', acc:[], e:'dopo does → base.'},
+    {ty:'mc', q:'Avverbio di frequenza: dove va?', o:['I drink always coffee','Always I drink coffee','I always drink coffee','I drink coffee always'], a:2, e:'prima del verbo principale.'}
+  ]);
+  add('a1-presentcont',[
+    {ty:'fill', q:'Completa (-ing):', s:'I am ___ (write) an email.', a:'writing', acc:[], e:'write → writing.'},
+    {ty:'fill', q:'Completa:', s:'She ___ (cook) dinner now.', a:'is cooking', acc:[], e:'she → is + ing.'},
+    {ty:'mc', q:'Listen! The baby ___ .', o:['cries','is crying','cry','crying'], a:1, e:'ora → is crying.'},
+    {ty:'fill', q:'Completa (-ing):', s:'They are ___ (sit) outside.', a:'sitting', acc:[], e:'sit → sitting (raddoppio).'},
+    {ty:'fill', q:'Negazione:', s:'I ___ (not/work) today.', a:"am not working", acc:["'m not working"], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Stiamo guardando un film.', a:'We are watching a film.', acc:["We're watching a film."], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Cosa stai facendo?', a:'What are you doing?', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'He is run in the park.', a:'He is running in the park.', acc:[], e:'serve -ing (running).'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I am liking this song.', a:'I like this song.', acc:[], e:'like è verbo di stato.'},
+    {ty:'mc', q:'Quale frase è "ora"?', o:['I work every day','I am working now','I worked yesterday','I will work'], a:1, e:'present continuous → ora.'}
+  ]);
+  add('a1-articles',[
+    {ty:'fill', q:'a / an:', s:'I have ___ orange.', a:'an', acc:[], e:'vocale → an.'},
+    {ty:'fill', q:'a / an:', s:'She is ___ doctor.', a:'a', acc:[], e:'consonante → a.'},
+    {ty:'mc', q:'___ sun is hot.', o:['A','An','The','-'], a:2, e:'unico → the.'},
+    {ty:'fill', q:'a/an/the:', s:'There is ___ apple on ___ table.', a:'an the', acc:[], e:'an apple / the table.'},
+    {ty:'mc', q:'I love ___ (in generale).', o:['a music','the music','an music','music'], a:3, e:'incontabile generico → niente articolo.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'È un\'ora.', a:'It is an hour.', acc:["It's an hour."], e:'h muta → an.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Chiudi la porta.', a:'Close the door.', acc:[], e:'porta specifica → the.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'He is a engineer.', a:'He is an engineer.', acc:[], e:'vocale → an.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I like the dogs (in generale).', a:'I like dogs.', acc:[], e:'plurale generico → niente articolo.'},
+    {ty:'fill', q:'a/an:', s:'It\'s ___ university.', a:'a', acc:[], e:'suono /ju/ → a.'}
+  ]);
+  add('a1-plurals',[
+    {ty:'fill', q:'Plurale:', s:'one baby, two ___ .', a:'babies', acc:[], e:'consonante+y → ies.'},
+    {ty:'fill', q:'Plurale:', s:'one leaf, many ___ .', a:'leaves', acc:[], e:'-f → -ves.'},
+    {ty:'mc', q:'Plurale di "tooth":', o:['tooths','teeth','toothes','teeths'], a:1, e:'irregolare: teeth.'},
+    {ty:'fill', q:'Plurale:', s:'one dish, three ___ .', a:'dishes', acc:[], e:'-sh → -es.'},
+    {ty:'mc', q:'Plurale di "person":', o:['persons','people','peoples','persones'], a:1, e:'people.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Due donne.', a:'Two women.', acc:[], e:'woman → women.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Cinque bambini.', a:'Five children.', acc:[], e:'child → children.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I have three foots.', a:'I have three feet.', acc:[], e:'foot → feet.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'two citys', a:'two cities', acc:[], e:'consonante+y → ies.'},
+    {ty:'fill', q:'Plurale:', s:'one man, two ___ .', a:'men', acc:[], e:'man → men.'}
+  ]);
+  add('a1-possessive',[
+    {ty:'fill', q:'Possessivo:', s:'This is ___ car. (di lui)', a:'his', acc:[], e:'he → his.'},
+    {ty:'fill', q:'Possessivo:', s:'They love ___ dog. (di loro)', a:'their', acc:[], e:'they → their.'},
+    {ty:'mc', q:'Maria and I like ___ teacher.', o:['my','our','their','your'], a:1, e:'we → our.'},
+    {ty:'fill', q:'Genitivo sassone:', s:'It\'s ___ (Sara) bag.', a:"Sara's", acc:[], e:"singolare → 's."},
+    {ty:'mc', q:'"i giocattoli dei bambini":', o:["the children's toys","the childrens' toys","the children toys","toys of children"], a:0, e:"plurale irregolare → children's."},
+    {ty:'tr', q:'Traduci in inglese:', it:'Il mio nome è Marco.', a:'My name is Marco.', acc:[], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'La macchina di Tom.', a:"Tom's car.", acc:[], e:'genitivo sassone.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'The dog wags it\'s tail.', a:'The dog wags its tail.', acc:[], e:'possessivo → its (senza apostrofo).'},
+    {ty:'corr', q:"Correggi l'errore:", w:'This is the house of my parents.', a:"This is my parents' house.", acc:[], e:'persone → genitivo sassone.'},
+    {ty:'fill', q:'Possessivo:', s:'___ keys are on the table. (di te)', a:'Your', acc:[], e:'you → your.'}
+  ]);
+  add('a1-thereis',[
+    {ty:'fill', q:'Completa:', s:'___ a dog in the garden.', a:'There is', acc:["There's"], e:'singolare → there is.'},
+    {ty:'fill', q:'Completa:', s:'___ four people in my family.', a:'There are', acc:[], e:'plurale → there are.'},
+    {ty:'mc', q:'___ any milk in the fridge?', o:['Is there','Are there','There is','There are'], a:0, e:'milk incontabile → Is there.'},
+    {ty:'fill', q:'Negazione:', s:'There ___ any students here.', a:"aren't", acc:['are not'], e:'plurale → aren\'t.'},
+    {ty:'mc', q:'C\'è / È: "___ a nice restaurant near here."', o:['It is','There is','There are','Is'], a:1, e:'esistenza → There is.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ci sono molte macchine.', a:'There are many cars.', acc:[], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Non c\'è pane.', a:"There isn't any bread.", acc:['There is no bread.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'There are a book on the desk.', a:'There is a book on the desk.', acc:[], e:'singolare → there is.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'It is two windows.', a:'There are two windows.', acc:[], e:'esistenza → there are.'},
+    {ty:'fill', q:'Domanda:', s:'___ there a bank near here?', a:'Is', acc:[], e:'singolare → Is there.'}
+  ]);
+  add('a1-can',[
+    {ty:'fill', q:'Completa:', s:'I ___ (can) speak English.', a:'can', acc:[], e:'abilità → can.'},
+    {ty:'fill', q:'Negazione:', s:'She ___ swim. (non sa)', a:"can't", acc:['cannot'], e:'negazione → can\'t.'},
+    {ty:'mc', q:'___ you help me?', o:['Do','Can','Are','Is'], a:1, e:'richiesta → Can.'},
+    {ty:'fill', q:'Verbo base:', s:'They can ___ (play) the piano.', a:'play', acc:[], e:'dopo can → base.'},
+    {ty:'mc', q:'Quale è corretto?', o:['She cans drive','She can drives','She can drive','She can to drive'], a:2, e:'can + base, niente -s/to.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Posso aprire la finestra?', a:'Can I open the window?', acc:[], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Non possono venire.', a:"They can't come.", acc:['They cannot come.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I can to swim.', a:'I can swim.', acc:[], e:'niente to dopo can.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'He cans cook.', a:'He can cook.', acc:[], e:'can non prende -s.'},
+    {ty:'fill', q:'Permesso (gentile):', s:'___ I sit here? (potrei)', a:'Could', acc:['Can','May'], e:'gentile → Could/May.'}
+  ]);
+  add('a1-objpron',[
+    {ty:'fill', q:'Pronome complemento:', s:'I saw Anna and called ___ .', a:'her', acc:[], e:'Anna → her.'},
+    {ty:'mc', q:'Give it to ___ . (loro)', o:['they','them','their','theirs'], a:1, e:'complemento → them.'},
+    {ty:'fill', q:'Completa:', s:'Can you help ___ ? (me)', a:'me', acc:[], e:'I → me.'},
+    {ty:'fill', q:'Completa:', s:'This gift is for ___ . (lui)', a:'him', acc:[], e:'he → him.'},
+    {ty:'mc', q:'We invited ___ to dinner. (voi)', o:['you','your','yours','ye'], a:0, e:'you uguale.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Lo conosco.', a:'I know him.', acc:['I know it.'], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ci aiutano.', a:'They help us.', acc:[], e:'we → us.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I saw she yesterday.', a:'I saw her yesterday.', acc:[], e:'complemento → her.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'Call I later.', a:'Call me later.', acc:[], e:'complemento → me.'},
+    {ty:'fill', q:'Completa:', s:'These books? I read ___ all. (essi)', a:'them', acc:[], e:'they → them.'}
+  ]);
+  add('a1-prep-time',[
+    {ty:'fill', q:'in/on/at:', s:'The party is ___ Saturday.', a:'on', acc:[], e:'giorno → on.'},
+    {ty:'fill', q:'in/on/at:', s:'I wake up ___ 6 am.', a:'at', acc:[], e:'ora → at.'},
+    {ty:'fill', q:'in/on/at:', s:'It\'s cold ___ winter.', a:'in', acc:[], e:'stagione → in.'},
+    {ty:'mc', q:'See you ___ Monday morning.', o:['in','on','at','by'], a:1, e:'giorno → on.'},
+    {ty:'fill', q:'in/on/at:', s:'My birthday is ___ March.', a:'in', acc:[], e:'mese → in.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Alle otto di sera.', a:'At eight in the evening.', acc:['At 8 in the evening.'], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Nel 2020.', a:'In 2020.', acc:[], e:'anno → in.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I was born at 1990.', a:'I was born in 1990.', acc:[], e:'anno → in.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'The meeting is in Friday.', a:'The meeting is on Friday.', acc:[], e:'giorno → on.'},
+    {ty:'fill', q:'in/on/at:', s:'I study ___ night.', a:'at', acc:[], e:'at night (eccezione).'}
+  ]);
+  add('a1-whquestions',[
+    {ty:'mc', q:'___ are you from?', o:['What','Where','When','Who'], a:1, e:'provenienza/luogo → Where.'},
+    {ty:'fill', q:'Completa:', s:'___ is your birthday? (tempo)', a:'When', acc:[], e:'tempo → When.'},
+    {ty:'fill', q:'Completa:', s:'___ many brothers do you have?', a:'How', acc:[], e:'quantità → How many.'},
+    {ty:'mc', q:'___ is that man? (identità)', o:['What','Who','Where','Why'], a:1, e:'persona → Who.'},
+    {ty:'fill', q:'Completa:', s:'___ do you go to school? (mezzo: come)', a:'How', acc:[], e:'modo → How.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Cosa fai?', a:'What do you do?', acc:['What are you doing?'], e:''},
+    {ty:'tr', q:'Traduci in inglese:', it:'Perché piangi?', a:'Why are you crying?', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'Where you are going?', a:'Where are you going?', acc:[], e:'inversione: are you.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'What means this word?', a:'What does this word mean?', acc:[], e:'serve l\'ausiliare does.'},
+    {ty:'fill', q:'Completa:', s:'___ book do you want? (quale)', a:'Which', acc:['What'], e:'scelta → Which.'}
+  ]);
+})();
 window.TIPS = {
 A1: [
   {c:'falso', t:'"Actually" non vuol dire "attualmente"', b:'<b>Actually</b> significa "in realtà / a dire il vero", non "attualmente". Per "attualmente" usa <b>currently</b> o <b>at the moment</b>. Es.: <i>Actually, I disagree</i> = In realtà non sono d\'accordo.'},
@@ -1540,6 +1688,209 @@ window.PHRASAL = [
   ["look into","esaminare/indagare","The police are looking into the case."]
 ]}
 ];
+// [parola, categoria, significato_it, esempio_en]
+window.VOCAB = [
+["achieve","verbo","raggiungere/ottenere","She worked hard to achieve her goals."],
+["advice","nome","consiglio","Let me give you some advice."],
+["afford","verbo","permettersi (economicamente)","I can't afford a new car."],
+["amazing","aggettivo","straordinario","The view was amazing."],
+["available","aggettivo","disponibile","Is this seat available?"],
+["awful","aggettivo","terribile/orribile","The weather was awful yesterday."],
+["borrow","verbo","prendere in prestito","Can I borrow your pen?"],
+["brave","aggettivo","coraggioso","It was a brave decision."],
+["busy","aggettivo","occupato/affollato","I'm very busy this week."],
+["careful","aggettivo","attento/prudente","Be careful on the stairs."],
+["challenge","nome","sfida","Learning a language is a challenge."],
+["cheap","aggettivo","economico","This restaurant is quite cheap."],
+["choice","nome","scelta","You made the right choice."],
+["clever","aggettivo","intelligente/furbo","She's a clever student."],
+["complain","verbo","lamentarsi","He always complains about the food."],
+["confident","aggettivo","sicuro di sé","She feels confident before exams."],
+["crowded","aggettivo","affollato","The train was crowded this morning."],
+["dangerous","aggettivo","pericoloso","Smoking is dangerous."],
+["decide","verbo","decidere","We decided to stay home."],
+["delicious","aggettivo","delizioso","This cake is delicious."],
+["disappointed","aggettivo","deluso","I was disappointed with the result."],
+["discover","verbo","scoprire","Scientists discovered a new planet."],
+["doubt","nome","dubbio","I have no doubt about it."],
+["eager","aggettivo","desideroso/impaziente","She's eager to learn."],
+["earn","verbo","guadagnare","How much do you earn?"],
+["embarrassed","aggettivo","imbarazzato","He felt embarrassed about his mistake."],
+["empty","aggettivo","vuoto","The box is empty."],
+["enough","aggettivo/avv.","abbastanza","We have enough time."],
+["environment","nome","ambiente","We must protect the environment."],
+["expensive","aggettivo","costoso","That watch is too expensive."],
+["experience","nome","esperienza","She has a lot of work experience."],
+["fair","aggettivo","giusto/equo","It's not fair!"],
+["familiar","aggettivo","familiare/noto","Your face looks familiar."],
+["fault","nome","colpa","It's not my fault."],
+["fluent","aggettivo","fluente","She is fluent in three languages."],
+["forbidden","aggettivo","proibito","Smoking is forbidden here."],
+["fortunately","avverbio","fortunatamente","Fortunately, nobody was hurt."],
+["frequent","aggettivo","frequente","He's a frequent traveller."],
+["generous","aggettivo","generoso","She is very generous with her time."],
+["gentle","aggettivo","gentile/delicato","Be gentle with the baby."],
+["goal","nome","obiettivo/gol","My goal is to learn English."],
+["guess","verbo","indovinare","Can you guess my age?"],
+["harmful","aggettivo","dannoso","Too much sugar is harmful."],
+["honest","aggettivo","onesto","Please be honest with me."],
+["huge","aggettivo","enorme","They live in a huge house."],
+["improve","verbo","migliorare","I want to improve my English."],
+["increase","verbo","aumentare","Prices increased last year."],
+["independent","aggettivo","indipendente","She's very independent."],
+["issue","nome","questione/problema","We need to discuss this issue."],
+["jealous","aggettivo","geloso","He gets jealous easily."],
+["journey","nome","viaggio/tragitto","The journey took five hours."],
+["knowledge","nome","conoscenza/sapere","She has a deep knowledge of history."],
+["lazy","aggettivo","pigro","Don't be so lazy!"],
+["lonely","aggettivo","solo/solitario","He felt lonely in the new city."],
+["loud","aggettivo","rumoroso/forte","The music is too loud."],
+["manage","verbo","riuscire/gestire","Did you manage to finish?"],
+["mistake","nome","errore","Everyone makes mistakes."],
+["nervous","aggettivo","nervoso/agitato","I'm nervous about the interview."],
+["notice","verbo","notare/accorgersi","I didn't notice the sign."],
+["obvious","aggettivo","ovvio/evidente","The answer is obvious."],
+["offer","verbo/nome","offrire/offerta","They offered me a job."],
+["patient","aggettivo/nome","paziente","Please be patient."],
+["polite","aggettivo","educato/cortese","He's always polite to customers."],
+["powerful","aggettivo","potente","It's a powerful engine."],
+["prevent","verbo","prevenire/impedire","Exercise can prevent illness."],
+["proud","aggettivo","orgoglioso","I'm proud of you."],
+["quiet","aggettivo","silenzioso/tranquillo","Please be quiet."],
+["rare","aggettivo","raro","It's a rare disease."],
+["realize","verbo","rendersi conto","I didn't realize it was so late."],
+["reliable","aggettivo","affidabile","She's a reliable employee."],
+["remind","verbo","ricordare a qualcuno","Remind me to call her."],
+["rude","aggettivo","maleducato/scortese","Don't be rude!"],
+["safe","aggettivo","sicuro/al sicuro","Is the water safe to drink?"],
+["scared","aggettivo","spaventato","The child was scared of the dog."],
+["selfish","aggettivo","egoista","That was a selfish thing to do."],
+["share","verbo","condividere","Let's share the bill."],
+["shy","aggettivo","timido","She's too shy to speak."],
+["skill","nome","abilità/competenza","Communication is an important skill."],
+["spend","verbo","spendere/trascorrere","I spend too much money."],
+["strange","aggettivo","strano","That's a strange noise."],
+["succeed","verbo","riuscire/avere successo","She succeeded in her career."],
+["suggest","verbo","suggerire/proporre","I suggest we leave early."],
+["support","verbo/nome","sostenere/sostegno","Thank you for your support."],
+["surprised","aggettivo","sorpreso","I was surprised to see her."],
+["tidy","aggettivo","ordinato","Keep your room tidy."],
+["tired","aggettivo","stanco","I'm tired after work."],
+["tough","aggettivo","duro/difficile","It was a tough decision."],
+["trust","verbo/nome","fidarsi/fiducia","I trust you completely."],
+["ugly","aggettivo","brutto","It's an ugly building."],
+["upset","aggettivo","turbato/dispiaciuto","She was upset about the news."],
+["useful","aggettivo","utile","This app is really useful."],
+["valuable","aggettivo","prezioso/di valore","Your advice was valuable."],
+["weird","aggettivo","strano/bizzarro","That's a weird idea."],
+["whole","aggettivo","intero","I ate the whole pizza."],
+["wise","aggettivo","saggio","She gave me wise advice."],
+["worried","aggettivo","preoccupato","I'm worried about the exam."],
+["worth","aggettivo","che vale (la pena)","This book is worth reading."]
+];
+(function(){
+  window.VOCAB=(window.VOCAB||[]).concat([
+["abroad","avverbio","all'estero","She studied abroad for a year."],
+["accept","verbo","accettare","He accepted the job offer."],
+["accurate","aggettivo","accurato/preciso","The report must be accurate."],
+["admit","verbo","ammettere","He admitted his mistake."],
+["afraid","aggettivo","spaventato/dispiaciuto","I'm afraid of spiders."],
+["allow","verbo","permettere","Smoking is not allowed here."],
+["amount","nome","quantità/importo","A large amount of money."],
+["annoy","verbo","infastidire","The noise really annoys me."],
+["apologize","verbo","scusarsi","She apologized for being late."],
+["appear","verbo","apparire/sembrare","He appeared calm."],
+["appreciate","verbo","apprezzare","I appreciate your help."],
+["approach","verbo/nome","avvicinarsi/approccio","We need a new approach."],
+["argue","verbo","discutere/litigare","They argue about money."],
+["arrange","verbo","organizzare/disporre","Let's arrange a meeting."],
+["attempt","verbo/nome","tentare/tentativo","She made an attempt to escape."],
+["attractive","aggettivo","attraente","It's an attractive offer."],
+["avoid","verbo","evitare","Try to avoid mistakes."],
+["aware","aggettivo","consapevole","Are you aware of the risks?"],
+["behave","verbo","comportarsi","The children behaved well."],
+["belong","verbo","appartenere","This book belongs to me."],
+["benefit","nome/verbo","beneficio/giovare","Exercise has many benefits."],
+["blame","verbo","incolpare","Don't blame me!"],
+["boring","aggettivo","noioso","The film was boring."],
+["breath","nome","respiro","Take a deep breath."],
+["bright","aggettivo","luminoso/sveglio","She's a bright student."],
+["calm","aggettivo","calmo","Stay calm."],
+["careless","aggettivo","distratto/negligente","That was a careless mistake."],
+["cause","verbo/nome","causare/causa","Smoking causes disease."],
+["certain","aggettivo","certo/sicuro","I'm certain about it."],
+["comfortable","aggettivo","comodo","This chair is comfortable."],
+["complete","aggettivo/verbo","completo/completare","Please complete the form."],
+["consider","verbo","considerare","Consider all the options."],
+["contain","verbo","contenere","This drink contains sugar."],
+["convenient","aggettivo","comodo/conveniente","Is this time convenient for you?"],
+["damage","verbo/nome","danneggiare/danno","The storm caused damage."],
+["deny","verbo","negare","He denied the accusation."],
+["depend","verbo","dipendere","It depends on the weather."],
+["deserve","verbo","meritare","You deserve a break."],
+["develop","verbo","sviluppare","They developed a new app."],
+["disappear","verbo","scomparire","The sun disappeared behind clouds."],
+["encourage","verbo","incoraggiare","My teacher encouraged me."],
+["enormous","aggettivo","enorme","It was an enormous success."],
+["entire","aggettivo","intero","The entire team agreed."],
+["essential","aggettivo","essenziale","Water is essential for life."],
+["exhausted","aggettivo","esausto","I was exhausted after the trip."],
+["expect","verbo","aspettarsi","I expect good results."],
+["explain","verbo","spiegare","Can you explain this rule?"],
+["faint","verbo/aggettivo","svenire/debole","She fainted in the heat."],
+["fancy","verbo","aver voglia di","Do you fancy a coffee?"],
+["flexible","aggettivo","flessibile","My schedule is flexible."],
+["frighten","verbo","spaventare","The storm frightened the kids."],
+["gain","verbo","guadagnare/acquisire","You gain experience over time."],
+["guilty","aggettivo","colpevole","He felt guilty about lying."],
+["handle","verbo","gestire/maneggiare","She can handle pressure."],
+["hardly","avverbio","a malapena","I can hardly hear you."],
+["healthy","aggettivo","sano","Eat a healthy diet."],
+["hesitate","verbo","esitare","Don't hesitate to ask."],
+["ignore","verbo","ignorare","He ignored my advice."],
+["impress","verbo","impressionare","Her work impressed me."],
+["include","verbo","includere","The price includes breakfast."],
+["intend","verbo","intendere/avere intenzione","I intend to study tonight."],
+["involve","verbo","comportare/coinvolgere","The job involves travel."],
+["lack","nome/verbo","mancanza/mancare","A lack of sleep is harmful."],
+["likely","aggettivo/avv.","probabile","It's likely to rain."],
+["matter","verbo/nome","importare/questione","It doesn't matter."],
+["mention","verbo","menzionare","She mentioned your name."],
+["necessary","aggettivo","necessario","Is it really necessary?"],
+["obtain","verbo","ottenere","You can obtain a visa online."],
+["occur","verbo","accadere/verificarsi","The accident occurred at night."],
+["offer","verbo/nome","offrire/offerta","They offered a discount."],
+["owe","verbo","dovere (denaro)","You owe me ten euros."],
+["pleasant","aggettivo","piacevole","We had a pleasant evening."],
+["prefer","verbo","preferire","I prefer tea to coffee."],
+["pretend","verbo","fingere","He pretended to be asleep."],
+["prevent","verbo","prevenire/impedire","Vaccines prevent disease."],
+["provide","verbo","fornire","The hotel provides towels."],
+["recognize","verbo","riconoscere","I didn't recognize you!"],
+["recommend","verbo","raccomandare","I recommend this book."],
+["reduce","verbo","ridurre","We must reduce costs."],
+["refuse","verbo","rifiutare","She refused to help."],
+["regret","verbo/nome","rimpiangere/rammarico","I regret nothing."],
+["relax","verbo","rilassarsi","I relax at the weekend."],
+["remain","verbo","rimanere","Please remain seated."],
+["replace","verbo","sostituire","We need to replace the battery."],
+["require","verbo","richiedere","This job requires patience."],
+["respect","verbo/nome","rispettare/rispetto","I respect your opinion."],
+["satisfied","aggettivo","soddisfatto","Are you satisfied with the result?"],
+["sensible","aggettivo","assennato/ragionevole","That's a sensible choice."],
+["several","aggettivo","diversi/parecchi","I tried several times."],
+["solve","verbo","risolvere","Let's solve this problem."],
+["spread","verbo","diffondere/spalmare","The news spread quickly."],
+["struggle","verbo/nome","faticare/lotta","I struggle with grammar."],
+["suitable","aggettivo","adatto","This film isn't suitable for children."],
+["suppose","verbo","supporre","I suppose you're right."],
+["suspect","verbo","sospettare","I suspect he's lying."],
+["thorough","aggettivo","accurato/approfondito","She did a thorough job."],
+["threat","nome","minaccia","It's a serious threat."],
+["various","aggettivo","vari","For various reasons."],
+["wealthy","aggettivo","ricco/benestante","They are a wealthy family."]
+  ]);
+})();
 </script>
 
 
@@ -1563,6 +1914,12 @@ window.PHRASAL = [
   function load(){ try { return JSON.parse(localStorage.getItem(KEY))||{}; } catch(e){ return {}; } }
   function save(){ localStorage.setItem(KEY, JSON.stringify(S)); }
   function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  // ---- audio (text-to-speech) ----
+  var TTS = ('speechSynthesis' in window);
+  function speak(t){ if(!TTS||!t) return; try{ window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(t); u.lang='en-GB'; u.rate=0.92; window.speechSynthesis.speak(u);}catch(e){} }
+  function spk(text){ if(!TTS) return ''; return '<button class="spk" data-spk="'+esc(text)+'" title="Ascolta la pronuncia">🔊</button>'; }
+  document.addEventListener('click', function(e){ var b=e.target.closest && e.target.closest('.spk'); if(b){ e.preventDefault(); speak(b.getAttribute('data-spk')); } });
   function norm(s){ return (s||'').toString().toLowerCase().replace(/[.,!?;:"'`’]/g,'').replace(/\s+/g,' ').trim(); }
   function todayStr(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
   function dayIndex(){ const d=new Date(); const start=new Date(d.getFullYear(),0,0); return Math.floor((d-start)/86400000); }
@@ -1604,7 +1961,10 @@ window.PHRASAL = [
         const b=document.createElement('button'); b.className='opt'; b.textContent=opt;
         b.onclick=()=>{ const all=opts.querySelectorAll('.opt'); all.forEach(x=>x.disabled=true);
           const ok=oi===q.a; b.classList.add(ok?'correct':'wrong'); if(!ok&&all[q.a]) all[q.a].classList.add('correct');
-          fb.className='fb '+(ok?'ok':'no'); fb.innerHTML=(ok?'✅ Corretto! ':'❌ Non esatto. ')+(q.e?esc(q.e):'');
+          fb.className='fb '+(ok?'ok':'no');
+          fb.innerHTML=(ok?'✅ Corretto! ':'❌ Non esatto. ')
+            + (ok?'':'<span class="expl"><b>Risposta giusta:</b> '+esc(q.o[q.a])+' '+spk(q.o[q.a])+'</span>')
+            + (q.e?'<span class="expl">💡 '+esc(q.e)+'</span>':'');
           onAnswer(ok); };
         opts.appendChild(b);
       });
@@ -1622,7 +1982,9 @@ window.PHRASAL = [
         const ok=acc.includes(norm(input.value));
         input.disabled=true; btn.disabled=true; input.classList.add(ok?'correct':'wrong');
         fb.className='fb '+(ok?'ok':'no');
-        fb.innerHTML=(ok?'✅ Corretto! ':'❌ Non esatto. ')+`<span class="sol">Risposta: ${esc(q.a)}</span>`+(q.e?' — '+esc(q.e):'');
+        fb.innerHTML=(ok?'✅ Corretto! ':'❌ Non esatto. ')
+          +`<span class="expl"><b>Risposta${ok?'':' giusta'}:</b> <span class="sol">${esc(q.a)}</span> ${spk(q.a)}</span>`
+          +(q.e?'<span class="expl">💡 '+esc(q.e)+'</span>':'');
         onAnswer(ok); };
       btn.onclick=check; input.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
     }
@@ -1669,13 +2031,26 @@ window.PHRASAL = [
   }
 
   function lessonCard(topic){
-    const ex=(topic.ex||[]).map(e=>`<div class="ex-row"><span class="en">${esc(e[0])}</span><span class="it">${esc(e[1])}</span></div>`).join('');
+    const ex=(topic.ex||[]).map(e=>`<div class="ex-row"><span class="en">${esc(e[0])}${spk(e[0])}</span><span class="it">${esc(e[1])}</span></div>`).join('');
     return `<div class="card"><h2 class="lesson-title">${esc(topic.t)}</h2>
       <div class="explain">${topic.g}</div>
       ${ex?`<div class="examples"><h3>Esempi</h3>${ex}</div>`:''}</div>`;
   }
 
   function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  const QUIZ_N = 15; // domande per test
+  // Estrae un batch di n domande dal pool del topic, preferendo quelle non ancora viste (backup per test sempre nuovi).
+  function drawBatch(id, pool, n){
+    n = Math.min(n||QUIZ_N, pool.length);
+    S.served = S.served || {};
+    let served = S.served[id] || [];
+    let avail = []; for(let i=0;i<pool.length;i++){ if(served.indexOf(i)===-1) avail.push(i); }
+    if(avail.length < n){ served = []; avail = []; for(let i=0;i<pool.length;i++) avail.push(i); } // ciclo esaurito → reset
+    const pick = shuffle(avail).slice(0, n);
+    S.served[id] = served.concat(pick);
+    save();
+    return pick.map(i=>pool[i]);
+  }
 
   // ---- views ----
   function nextLesson(){ S.dailyOffset=(S.dailyOffset||0)+1; save(); viewToday(); window.scrollTo({top:0,behavior:'smooth'}); }
@@ -1686,12 +2061,13 @@ window.PHRASAL = [
     $view.innerHTML = `<div class="card" style="padding:14px 18px"><span class="tag">Lezione del giorno · ${S.level} ${LEVEL_NAME[S.level]}</span>
       <div class="muted">Studia l'argomento, poi rispondi al quiz. Puoi chiudere e caricarne una nuova quando vuoi.</div></div>`;
     const c=document.createElement('div'); c.innerHTML=lessonCard(topic); $view.appendChild(c);
+    const batch=drawBatch(topic.id, topic.qz, QUIZ_N);
     const qc=document.createElement('div'); qc.className='card';
-    qc.innerHTML=`<p class="section-label">Quiz · ${topic.qz.length} domande</p>`;
+    qc.innerHTML=`<p class="section-label">Quiz · ${batch.length} domande${topic.qz.length>batch.length?' (su '+topic.qz.length+' in archivio)':''}</p>`;
     $view.appendChild(qc);
-    runQuiz(qc, topic.qz, {markDaily:true, topicId:topic.id, onNext:nextLesson});
-    const nav=document.createElement('div'); nav.className='center'; nav.style.margin='8px 0 12px';
-    nav.innerHTML='<button class="cta-bright" id="skipBtn">🔄 Chiudi e carica una nuova lezione</button>';
+    runQuiz(qc, batch, {markDaily:true, topicId:topic.id, onNext:nextLesson});
+    const nav=document.createElement('div'); nav.className='center'; nav.style.margin='4px 0 10px';
+    nav.innerHTML='<button class="link-skip" id="skipBtn">↪ Salta questa lezione e caricane un\'altra</button>';
     $view.appendChild(nav);
     nav.querySelector('#skipBtn').onclick=nextLesson;
   }
@@ -1703,7 +2079,7 @@ window.PHRASAL = [
     topics.forEach(t=>{
       const done=S.bestByTopic[t.id];
       const item=document.createElement('div'); item.className='grammar-item';
-      const ex=(t.ex||[]).map(e=>`<div class="ex-row"><span class="en">${esc(e[0])}</span><span class="it">${esc(e[1])}</span></div>`).join('');
+      const ex=(t.ex||[]).map(e=>`<div class="ex-row"><span class="en">${esc(e[0])}${spk(e[0])}</span><span class="it">${esc(e[1])}</span></div>`).join('');
       item.innerHTML=`<div class="grammar-head"><span>${esc(t.t)} ${done!=null?`<span class="badge-done">· quiz ${done}%</span>`:''}</span><span class="chev">▶</span></div>
         <div class="grammar-body"><div class="explain">${t.g}</div>${ex?`<div class="examples"><h3>Esempi</h3>${ex}</div>`:''}
         <div style="margin-top:12px"><button class="primary-btn" data-id="${t.id}">Esercitati su questo →</button></div></div>`;
@@ -1727,19 +2103,20 @@ window.PHRASAL = [
     picker.appendChild(mk('MIX','🎲 Mix livello'));
     topics.forEach(t=> picker.appendChild(mk(t.id, t.t)));
     const genWrap=document.createElement('div'); genWrap.className='center'; genWrap.style.margin='2px 0 12px';
-    genWrap.innerHTML='<button class="gen-btn" id="genBtn">🎲 Genera nuovi esercizi</button>';
+    genWrap.innerHTML='<button class="gen-btn" id="genBtn">🎲 Genera nuovo test</button>';
     $view.appendChild(genWrap);
     genWrap.querySelector('#genBtn').onclick=()=>viewQuiz();
     const qc=document.createElement('div'); qc.className='card'; $view.appendChild(qc);
     if(cur==='MIX'){
       let all=[]; topics.forEach(t=> t.qz.forEach(q=> all.push(q)));
-      const sel=shuffle(all).slice(0, Math.min(12, all.length));
+      const sel=shuffle(all).slice(0, Math.min(QUIZ_N, all.length));
       qc.innerHTML=`<p class="section-label">Mix · ${sel.length} domande casuali da tutti gli argomenti ${S.level}</p>`;
       runQuiz(qc, sel, {});
     } else {
       const t=topics.find(x=>x.id===cur)||topics[0];
-      qc.innerHTML=`<p class="section-label">${esc(t.t)} · ${t.qz.length} domande</p>`;
-      runQuiz(qc, shuffle(t.qz), {topicId:t.id});
+      const batch=drawBatch(t.id, t.qz, QUIZ_N);
+      qc.innerHTML=`<p class="section-label">${esc(t.t)} · ${batch.length} domande${t.qz.length>batch.length?' (archivio: '+t.qz.length+')':''}</p>`;
+      runQuiz(qc, batch, {topicId:t.id});
     }
   }
 
@@ -1782,7 +2159,7 @@ window.PHRASAL = [
     function paint(f){ f=(f||'').toLowerCase().trim(); tb.innerHTML='';
       data.filter(r=> !f || r.join(' ').toLowerCase().includes(f)).forEach(r=>{
         const tr=document.createElement('tr');
-        tr.innerHTML=`<td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td class="it">${esc(r[3])}</td>`;
+        tr.innerHTML=`<td>${esc(r[0])}${spk(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td class="it">${esc(r[3])}</td>`;
         tb.appendChild(tr); }); }
     paint('');
     card.querySelector('#vsearch').addEventListener('input',e=>paint(e.target.value));
@@ -1818,7 +2195,7 @@ window.PHRASAL = [
         if(!rows.length) return;
         const h=document.createElement('div'); h.className='ph-theme'; h.textContent=g.theme; list.appendChild(h);
         const t=document.createElement('div'); t.style.overflowX='auto';
-        t.innerHTML='<table class="vtable"><tbody>'+rows.map(it=>`<tr><td>${esc(it[0])}</td><td class="it">${esc(it[1])}</td><td><i>${esc(it[2])}</i></td></tr>`).join('')+'</tbody></table>';
+        t.innerHTML='<table class="vtable"><tbody>'+rows.map(it=>`<tr><td>${esc(it[0])}${spk(it[0])}</td><td class="it">${esc(it[1])}</td><td><i>${esc(it[2])}</i>${spk(it[2])}</td></tr>`).join('')+'</tbody></table>';
         list.appendChild(t);
       });
     }
@@ -1838,12 +2215,34 @@ window.PHRASAL = [
     };
   }
 
+  function viewVocab(){
+    const data=window.VOCAB||[];
+    S.vocabLearned = S.vocabLearned || 0;
+    if(S.vocabIdx==null || S.vocabIdx>=data.length) S.vocabIdx=Math.floor(Math.random()*data.length);
+    const w=data[S.vocabIdx];
+    $view.innerHTML = `<div class="card" style="padding:14px 18px"><span class="tag">Vocaboli · ${data.length} parole</span>
+      <div class="muted">Una parola alla volta: ascolta la pronuncia, leggi significato ed esempio, poi genera la prossima.</div></div>
+      <div class="card vocab-card">
+        <div class="vocab-pos">${esc(w[1])}</div>
+        <div class="vocab-word">${esc(w[0])}</div>
+        <button class="spk-big" data-spk="${esc(w[0])}">🔊 Ascolta la parola</button>
+        <div class="vocab-mean">${esc(w[2])}</div>
+        <div class="vocab-ex">${esc(w[3])} <button class="spk" data-spk="${esc(w[3])}" title="Ascolta la frase">🔊</button></div>
+        <button class="cta-bright" id="newWord">🎲 Nuova parola</button>
+      </div>`;
+    $view.querySelector('#newWord').onclick=()=>{
+      let n; do { n=Math.floor(Math.random()*data.length); } while(data.length>1 && n===S.vocabIdx);
+      S.vocabIdx=n; S.vocabLearned++; save(); viewVocab(); speak(data[S.vocabIdx][0]);
+    };
+  }
+
   function render(){
     refreshStats();
     if(S.tab==='today') viewToday();
     else if(S.tab==='grammar') viewGrammar();
     else if(S.tab==='tips') viewTips();
     else if(S.tab==='res') viewResources();
+    else if(S.tab==='vocab') viewVocab();
     else viewQuiz();
   }
 
