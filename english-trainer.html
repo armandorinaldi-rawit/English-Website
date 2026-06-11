@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Trainer — Grammatica & Quiz A1–C2</title>
+<style>
+  :root { color-scheme: light; --blue:#4f7cff; --pur:#8a5cff; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:#f6f7fb; color:#1d2433; line-height:1.55; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 18px 16px 70px; }
+  header.top { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .logo { width:40px; height:40px; border-radius:11px; background:linear-gradient(135deg,var(--blue),var(--pur)); display:grid; place-items:center; color:#fff; font-weight:800; font-size:16px; }
+  h1 { font-size:18px; margin:0; }
+  .sub { font-size:12px; color:#6b7280; margin:0; }
+  .stats { display:flex; gap:8px; flex-wrap:wrap; }
+  .pill { background:#fff; border:1px solid #e6e8ef; border-radius:999px; padding:6px 12px; font-size:12px; color:#374151; display:flex; gap:6px; align-items:center; }
+  .pill b { font-size:14px; color:#1d2433; }
+  .controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+  .controls .lbl { font-size:13px; color:#6b7280; font-weight:600; }
+  .seg { display:inline-flex; flex-wrap:wrap; background:#fff; border:1px solid #e6e8ef; border-radius:999px; padding:3px; gap:2px; }
+  .seg button { border:none; background:transparent; padding:7px 16px; border-radius:999px; font-size:13px; font-weight:700; color:#6b7280; cursor:pointer; font-family:inherit; min-width:44px; }
+  .seg button.active { background:linear-gradient(135deg,var(--blue),var(--pur)); color:#fff; }
+  .tabs { display:flex; gap:6px; margin-bottom:16px; border-bottom:1px solid #e6e8ef; }
+  .tabs button { border:none; background:transparent; padding:10px 14px; font-size:14px; font-weight:600; color:#6b7280; cursor:pointer; font-family:inherit; border-bottom:2px solid transparent; margin-bottom:-1px; }
+  .tabs button.active { color:var(--blue); border-bottom-color:var(--blue); }
+  .card { background:#fff; border:1px solid #e6e8ef; border-radius:16px; padding:20px; box-shadow:0 1px 2px rgba(16,24,40,.04); margin-bottom:14px; }
+  .tag { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--blue); background:#eef2ff; padding:4px 10px; border-radius:999px; margin-bottom:10px; }
+  h2.lesson-title { font-size:21px; margin:4px 0 12px; }
+  .explain p { margin:0 0 10px; } .explain ul { margin:6px 0 12px; padding-left:20px; }
+  .examples { margin-top:8px; border-top:1px solid #eef0f5; padding-top:12px; }
+  .examples h3 { font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:#6b7280; margin:0 0 8px; }
+  .ex-row { display:flex; gap:10px; padding:7px 0; border-bottom:1px dashed #eef0f5; font-size:14px; }
+  .ex-row .en { font-weight:600; flex:1; } .ex-row .it { color:#6b7280; flex:1; }
+  .section-label { font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:#6b7280; margin:0 0 6px; }
+  .q { margin-bottom:18px; } .q:last-child { margin-bottom:0; }
+  .q-type { font-size:11px; font-weight:700; color:var(--pur); text-transform:uppercase; letter-spacing:.04em; }
+  .q-text { font-size:15px; font-weight:600; margin:4px 0 10px; }
+  .opts { display:grid; gap:8px; }
+  .opt { text-align:left; border:1px solid #e6e8ef; background:#fff; border-radius:10px; padding:10px 14px; font-size:14px; cursor:pointer; transition:all .12s; font-family:inherit; color:inherit; }
+  .opt:hover:not(:disabled) { border-color:#b9c4ff; background:#f7f9ff; }
+  .opt.correct { border-color:#16a34a; background:#ecfdf3; color:#14532d; }
+  .opt.wrong { border-color:#dc2626; background:#fef2f2; color:#7f1d1d; }
+  .opt:disabled { cursor:default; }
+  input.txt { width:100%; border:1px solid #e6e8ef; border-radius:10px; padding:10px 14px; font-size:14px; font-family:inherit; color:inherit; }
+  input.txt:focus { outline:none; border-color:#b9c4ff; }
+  input.txt.correct { border-color:#16a34a; background:#ecfdf3; }
+  input.txt.wrong { border-color:#dc2626; background:#fef2f2; }
+  .check-btn { margin-top:8px; border:none; background:var(--blue); color:#fff; border-radius:10px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; }
+  .check-btn:disabled { background:#c3ccdf; cursor:default; }
+  .fb { font-size:13px; margin-top:8px; padding:8px 12px; border-radius:8px; display:none; }
+  .fb.ok { background:#ecfdf3; color:#14532d; display:block; }
+  .fb.no { background:#fef2f2; color:#7f1d1d; display:block; }
+  .fb .sol { font-weight:700; }
+  .primary-btn { border:none; background:linear-gradient(135deg,var(--blue),var(--pur)); color:#fff; border-radius:12px; padding:11px 20px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; box-shadow:0 2px 8px rgba(79,124,255,.3); }
+  .ghost-btn { border:1px solid #e6e8ef; background:#fff; color:#374151; border-radius:10px; padding:9px 16px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; }
+  .center { text-align:center; }
+  .muted { color:#6b7280; font-size:13px; }
+  .result-score { font-size:40px; font-weight:800; background:linear-gradient(135deg,var(--blue),var(--pur)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .hidden { display:none !important; }
+  .grammar-item { border:1px solid #e6e8ef; border-radius:12px; margin-bottom:10px; overflow:hidden; background:#fff; }
+  .grammar-head { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; font-weight:700; font-size:15px; }
+  .grammar-head:hover { background:#f7f9ff; }
+  .grammar-head .chev { color:#9ca3af; transition:transform .2s; }
+  .grammar-item.open .chev { transform:rotate(90deg); }
+  .grammar-body { display:none; padding:0 16px 16px; font-size:14px; }
+  .grammar-item.open .grammar-body { display:block; }
+  .badge-done { font-size:11px; color:#16a34a; font-weight:700; }
+  .topic-picker { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .chip { border:1px solid #e6e8ef; background:#fff; border-radius:999px; padding:7px 14px; font-size:13px; cursor:pointer; font-family:inherit; color:#374151; }
+  .chip.active { background:#eef2ff; border-color:#b9c4ff; color:var(--blue); font-weight:700; }
+  .footer-note { font-size:12px; color:#9ca3af; text-align:center; margin-top:18px; }
+  .progress-bar { height:6px; background:#eef0f5; border-radius:999px; overflow:hidden; margin:10px 0 16px; }
+  .progress-bar > div { height:100%; background:linear-gradient(90deg,var(--blue),var(--pur)); width:0; transition:width .3s; }
+  .reset-link { background:none; border:none; color:#9ca3af; font-size:12px; cursor:pointer; text-decoration:underline; font-family:inherit; }
+  @media (max-width: 560px) {
+    .wrap { padding: 14px 12px 64px; }
+    header.top { gap:8px; }
+    h1 { font-size:17px; }
+    .stats { width:100%; }
+    .pill { padding:5px 10px; font-size:11px; flex:1; justify-content:center; }
+    .tabs { flex-wrap:wrap; gap:4px; border-bottom:none; }
+    .tabs button { flex:1 1 30%; border:1px solid #e6e8ef; border-radius:10px; padding:9px 6px; font-size:13px; text-align:center; }
+    .tabs button.active { background:#eef2ff; border-color:#b9c4ff; }
+    .card { padding:16px; border-radius:14px; }
+    h2.lesson-title { font-size:19px; }
+    .ex-row { flex-direction:column; gap:2px; padding:8px 0; }
+    .ex-row .it { font-size:13px; }
+    .seg button { padding:8px 14px; }
+    .controls .lbl { width:100%; }
+    .topic-picker { gap:6px; }
+    .chip { padding:8px 12px; }
+  }
+  @media (hover: none) { .opt { padding:12px 14px; } input.txt { padding:12px 14px; font-size:16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="logo">EN</div>
+      <div>
+        <h1>English Trainer</h1>
+        <p class="sub">Grammatica + quiz · livelli A1–C2 · spiegazioni in italiano</p>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="pill">🔥 <b id="streak">0</b> giorni</div>
+      <div class="pill">📘 <b id="done">0</b> lezioni</div>
+      <div class="pill">🎯 <b id="acc">0</b> risposte ok</div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <span class="lbl">Livello:</span>
+    <div class="seg" id="levelSeg">
+      <button data-lv="A1">A1</button><button data-lv="A2">A2</button>
+      <button data-lv="B1">B1</button><button data-lv="B2">B2</button>
+      <button data-lv="C1">C1</button><button data-lv="C2">C2</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button data-tab="today" class="active">📅 Lezione di oggi</button>
+    <button data-tab="grammar">📖 Grammatica</button>
+    <button data-tab="quiz">✍️ Esercizi</button>
+  </div>
+
+  <div id="view"></div>
+
+  <div class="footer-note">
+    I tuoi progressi sono salvati automaticamente su questo dispositivo/browser. ·
+    <button class="reset-link" id="resetBtn">Azzera progressi</button>
+  </div>
+</div>
+
+<script>
+window.CURRICULUM = window.CURRICULUM || {};
+window.CURRICULUM.A1 = [
+{
+  id:'a1-tobe', t:'Il verbo TO BE (essere)',
+  g:`<p>Il verbo <b>to be</b> significa <i>essere</i> e cambia in base al soggetto: <b>I am</b>, <b>you are</b>, <b>he/she/it is</b>, <b>we/you/they are</b>.</p>
+  <p>Forme contratte molto usate nel parlato: <i>I'm, you're, he's, she's, it's, we're, they're</i>.</p>
+  <p>Per la <b>negazione</b> si aggiunge <b>not</b> (I am not / I'm not, she is not / she isn't). Per le <b>domande</b> si invertono soggetto e verbo: <i>Are you ready? Is he Italian?</i></p>`,
+  ex:[['I am a teacher.','Sono un insegnante.'],['She is at home.','Lei è a casa.'],['Are you tired?','Sei stanco?'],['They are not here.','Non sono qui.']],
+  qz:[
+    {ty:'mc', q:'She ___ a nurse.', o:['am','is','are','be'], a:1, e:'Con she si usa "is".'},
+    {ty:'mc', q:'___ you ready?', o:['Am','Is','Are','Be'], a:2, e:'Con you si usa "are".'},
+    {ty:'fill', q:'Completa con TO BE:', s:'They ___ my friends.', a:'are', acc:["'re"], e:'they → are.'},
+    {ty:'fill', q:'Completa la negazione:', s:'I ___ not hungry.', a:'am', acc:["'m"], e:'I → am (I am not).'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Io sono italiano.', a:'I am Italian.', acc:["I'm Italian."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'He are happy.', a:'He is happy.', acc:[], e:'he → is.'}
+  ]
+},
+{
+  id:'a1-presentsimple', t:'Present Simple (presente semplice)',
+  g:`<p>Si usa per <b>abitudini, fatti e situazioni permanenti</b>: <i>I work in Milan. Water boils at 100°C.</i></p>
+  <p>Alla <b>terza persona singolare</b> (he/she/it) il verbo prende la <b>-s</b>: <i>he works, she plays, it rains</i>. Verbi in -o, -ss, -sh, -ch, -x prendono <b>-es</b> (goes, watches).</p>
+  <p>Negazione e domanda usano l'ausiliare <b>do/does</b>: <i>I don't work. Does she work? He doesn't like tea.</i> Dopo does il verbo torna alla forma base (senza -s).</p>`,
+  ex:[['I drink coffee every morning.','Bevo caffè ogni mattina.'],['She works in a bank.','Lei lavora in banca.'],['Do you speak English?','Parli inglese?'],["He doesn't eat meat.",'Lui non mangia carne.']],
+  qz:[
+    {ty:'mc', q:'He ___ football on Sundays.', o:['play','plays','playes','is play'], a:1, e:'3ª persona → plays.'},
+    {ty:'mc', q:'___ she like coffee?', o:['Do','Does','Is','Are'], a:1, e:'Con she → does.'},
+    {ty:'fill', q:'Completa (3ª persona):', s:'My sister ___ (watch) TV every night.', a:'watches', acc:[], e:'watch + es.'},
+    {ty:'fill', q:'Completa la negazione:', s:"They ___ live here.", a:"don't", acc:['do not'], e:'they → don\'t.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Lei non parla francese.', a:"She doesn't speak French.", acc:['She does not speak French.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'She don\'t like fish.', a:"She doesn't like fish.", acc:['She does not like fish.'], e:'con she → doesn\'t.'}
+  ]
+},
+{
+  id:'a1-presentcont', t:'Present Continuous (presente progressivo)',
+  g:`<p>Si forma con <b>to be + verbo-ing</b> e descrive <b>azioni in corso ora</b> o intorno a questo periodo: <i>I am working now. She is studying English this year.</i></p>
+  <p>Note ortografiche: make → mak<b>ing</b>, run → run<b>ning</b> (raddoppio), lie → l<b>ying</b>.</p>
+  <p>Domanda: <i>What are you doing?</i> Negazione: <i>They aren't sleeping.</i></p>`,
+  ex:[['I am reading a book.','Sto leggendo un libro.'],['What are you doing?','Cosa stai facendo?'],['It is raining.','Sta piovendo.'],["We aren't working today.",'Oggi non stiamo lavorando.']],
+  qz:[
+    {ty:'mc', q:'Look! It ___ .', o:['rains','is raining','rain','raining'], a:1, e:'azione ora → is raining.'},
+    {ty:'mc', q:'What ___ you doing?', o:['is','am','are','do'], a:2, e:'you → are.'},
+    {ty:'fill', q:'Completa (-ing):', s:'She is ___ (run) in the park.', a:'running', acc:[], e:'run → running (raddoppio).'},
+    {ty:'fill', q:'Completa:', s:'They ___ watching a film right now.', a:'are', acc:["'re"], e:'they → are.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Sto mangiando adesso.', a:'I am eating now.', acc:["I'm eating now."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I am study English.', a:'I am studying English.', acc:["I'm studying English."], e:'serve la forma -ing.'}
+  ]
+},
+{
+  id:'a1-articles', t:'Articoli: a / an / the',
+  g:`<p><b>a/an</b> = un/uno/una (articolo indeterminativo), solo con nomi singolari numerabili. Si usa <b>an</b> davanti a suono vocalico: <i>a car, an apple, an hour</i> (h muta), <i>a university</i> (suono /ju/).</p>
+  <p><b>the</b> = il/lo/la/i/gli/le (determinativo), per cose specifiche o già note: <i>the sun, the book on the table</i>.</p>
+  <p>Spesso <b>nessun articolo</b> con plurali generici e non numerabili: <i>I like dogs. Water is important.</i></p>`,
+  ex:[['I have a dog.','Ho un cane.'],['She is an architect.','Lei è un\'architetto.'],['Close the door, please.','Chiudi la porta, per favore.'],['I love music.','Amo la musica.']],
+  qz:[
+    {ty:'mc', q:'She is ___ engineer.', o:['a','an','the','-'], a:1, e:'suono vocalico → an.'},
+    {ty:'mc', q:'Can you pass me ___ salt?', o:['a','an','the','-'], a:2, e:'sale specifico sul tavolo → the.'},
+    {ty:'fill', q:'Inserisci a/an/the:', s:'I saw ___ interesting film yesterday.', a:'an', acc:[], e:'interesting inizia per vocale.'},
+    {ty:'mc', q:'I like ___ (in generale).', o:['a cats','an cats','the cats','cats'], a:3, e:'plurale generico → nessun articolo.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'È un\'ora.', a:'It is an hour.', acc:["It's an hour."], e:'h muta → an.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I bought a umbrella.', a:'I bought an umbrella.', acc:[], e:'vocale → an.'}
+  ]
+},
+{
+  id:'a1-plurals', t:'Plurale dei nomi',
+  g:`<p>Regola base: <b>+s</b> (book → books). Nomi in -s, -ss, -sh, -ch, -x → <b>+es</b> (box → boxes). Nomi in consonante + y → <b>-ies</b> (city → cities). Nomi in -f/-fe → spesso <b>-ves</b> (knife → knives).</p>
+  <p><b>Plurali irregolari</b> da memorizzare: man→men, woman→women, child→children, foot→feet, tooth→teeth, person→people, mouse→mice.</p>`,
+  ex:[['one box → two boxes','una scatola → due scatole'],['baby → babies','bambino → bambini'],['child → children','bambino → bambini'],['person → people','persona → persone']],
+  qz:[
+    {ty:'mc', q:'Plurale di "city":', o:['citys','cities','cityes','citie'], a:1, e:'consonante+y → ies.'},
+    {ty:'mc', q:'Plurale di "child":', o:['childs','childes','children','childrens'], a:2, e:'irregolare: children.'},
+    {ty:'fill', q:'Scrivi il plurale:', s:'one knife, two ___ .', a:'knives', acc:[], e:'-fe → -ves.'},
+    {ty:'fill', q:'Scrivi il plurale:', s:'one watch, three ___ .', a:'watches', acc:[], e:'-ch → -es.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Tre uomini.', a:'Three men.', acc:[], e:'man → men.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I have two childs.', a:'I have two children.', acc:[], e:'plurale irregolare.'}
+  ]
+},
+{
+  id:'a1-possessive', t:'Aggettivi possessivi e genitivo sassone',
+  g:`<p>Aggettivi possessivi: <b>my, your, his, her, its, our, your, their</b>. Non cambiano col numero del nome: <i>my book, my books</i>.</p>
+  <p>Il <b>genitivo sassone ('s)</b> indica possesso: <i>Anna's car</i> (l'auto di Anna). Con plurali che finiscono in -s si mette solo l'apostrofo: <i>my parents' house</i>.</p>`,
+  ex:[['This is my phone.','Questo è il mio telefono.'],['Her name is Sara.','Il suo nome è Sara.'],["Tom's bike is new.","La bici di Tom è nuova."],["the students' books","i libri degli studenti"]],
+  qz:[
+    {ty:'mc', q:'Maria is here. ___ bag is red.', o:['His','Her','Its','Their'], a:1, e:'Maria → Her.'},
+    {ty:'mc', q:'Come si dice "l\'auto di John"?', o:['the car of John','John car','John\'s car','car John'], a:2, e:"genitivo: John's car."},
+    {ty:'fill', q:'Completa col possessivo:', s:'We love ___ new house. (di noi)', a:'our', acc:[], e:'we → our.'},
+    {ty:'fill', q:'Genitivo sassone:', s:"This is ___ (the dog) toy.", a:"the dog's", acc:[], e:"singolare → 's."},
+    {ty:'tr', q:'Traduci in inglese:', it:'È il loro cane.', a:'It is their dog.', acc:["It's their dog."], e:'they → their.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'This is the book of Anna.', a:"This is Anna's book.", acc:[], e:'persona → genitivo sassone.'}
+  ]
+},
+{
+  id:'a1-thereis', t:'There is / There are',
+  g:`<p>Si usa per dire che qualcosa <b>esiste o si trova</b> in un luogo. <b>There is</b> (+ singolare/non numerabile): <i>There is a book on the table.</i> <b>There are</b> (+ plurale): <i>There are three chairs.</i></p>
+  <p>Negazione: <i>There isn't / There aren't</i>. Domanda: <i>Is there...? Are there...?</i></p>`,
+  ex:[['There is a problem.','C\'è un problema.'],['There are many people.','Ci sono molte persone.'],['Is there a bank near here?','C\'è una banca qui vicino?'],["There aren't any eggs.",'Non ci sono uova.']],
+  qz:[
+    {ty:'mc', q:'___ a cat in the garden.', o:['There is','There are','There be','It is'], a:0, e:'singolare → there is.'},
+    {ty:'mc', q:'___ five books here.', o:['There is','There are','Is there','It is'], a:1, e:'plurale → there are.'},
+    {ty:'fill', q:'Completa:', s:'___ there any milk?', a:'Is', acc:[], e:'milk non numerabile → is there.'},
+    {ty:'fill', q:'Completa la negazione:', s:'There ___ any chairs.', a:"aren't", acc:['are not'], e:'plurale → aren\'t.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ci sono due finestre.', a:'There are two windows.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'There is three apples.', a:'There are three apples.', acc:[], e:'plurale → there are.'}
+  ]
+},
+{
+  id:'a1-can', t:'Modale CAN (potere/sapere)',
+  g:`<p><b>can</b> esprime <b>abilità</b> (so/sai fare) e <b>possibilità/permesso</b>: <i>I can swim. Can I open the window?</i></p>
+  <p>È seguito dal <b>verbo base</b> senza "to" e non prende -s alla terza persona: <i>She can drive.</i> Negazione: <b>can't / cannot</b>. Domanda: <i>Can you...?</i></p>`,
+  ex:[['I can play the guitar.','So suonare la chitarra.'],['Can you help me?','Mi puoi aiutare?'],["He can't come today.",'Lui non può venire oggi.'],['Can I sit here?','Posso sedermi qui?']],
+  qz:[
+    {ty:'mc', q:'She ___ speak three languages.', o:['can','cans','can to','is can'], a:0, e:'can + base, niente -s.'},
+    {ty:'mc', q:'Forma negativa di can:', o:['don\'t can','can not have','can\'t','no can'], a:2, e:"can't / cannot."},
+    {ty:'fill', q:'Completa:', s:'___ you swim?', a:'Can', acc:[], e:'domanda → Can you...?'},
+    {ty:'fill', q:'Completa col verbo base:', s:'He can ___ (drive) a truck.', a:'drive', acc:[], e:'dopo can → verbo base.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Non so nuotare.', a:"I can't swim.", acc:['I cannot swim.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'She can drives a car.', a:'She can drive a car.', acc:[], e:'dopo can → verbo base.'}
+  ]
+}
+];
+window.CURRICULUM = window.CURRICULUM || {};
+window.CURRICULUM.A2 = [
+{
+  id:'a2-pastsimple', t:'Past Simple (passato semplice)',
+  g:`<p>Si usa per <b>azioni concluse nel passato</b>, spesso con un tempo preciso (yesterday, last week, in 2019).</p>
+  <p>Verbi regolari: <b>+ed</b> (work → worked, play → played, study → studied). Tanti verbi sono <b>irregolari</b> e vanno memorizzati (go → went, have → had, see → saw, take → took).</p>
+  <p>Negazione e domanda usano <b>did</b> + verbo base: <i>I didn't go. Did you see it?</i></p>`,
+  ex:[['I visited Rome last year.','Ho visitato Roma l\'anno scorso.'],['She went home early.','È andata a casa presto.'],['Did you call him?','L\'hai chiamato?'],["They didn't come.",'Non sono venuti.']],
+  qz:[
+    {ty:'mc', q:'Yesterday I ___ to the cinema.', o:['go','went','goed','gone'], a:1, e:'go → went (irregolare).'},
+    {ty:'mc', q:'___ you finish the report?', o:['Do','Did','Does','Were'], a:1, e:'passato → did.'},
+    {ty:'fill', q:'Past simple regolare:', s:'They ___ (study) all night.', a:'studied', acc:[], e:'study → studied.'},
+    {ty:'fill', q:'Completa la negazione:', s:"He ___ (not/see) the email.", a:"didn't see", acc:['did not see'], e:'did not + base.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ieri ho comprato un libro.', a:'Yesterday I bought a book.', acc:['I bought a book yesterday.'], e:'buy → bought.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I didn\'t went there.', a:"I didn't go there.", acc:[], e:'dopo did → verbo base.'}
+  ]
+},
+{
+  id:'a2-pastcont', t:'Past Continuous (passato progressivo)',
+  g:`<p>Si forma con <b>was/were + verbo-ing</b> e descrive un'azione <b>in corso in un momento del passato</b>: <i>At 8 pm I was watching TV.</i></p>
+  <p>Spesso si combina col past simple: l'azione lunga (continuous) viene <b>interrotta</b> da una breve (simple): <i>While I was cooking, the phone rang.</i></p>`,
+  ex:[['I was sleeping at midnight.','A mezzanotte stavo dormendo.'],['They were playing football.','Stavano giocando a calcio.'],['What were you doing?','Cosa stavi facendo?'],['She was reading when I arrived.','Stava leggendo quando sono arrivato.']],
+  qz:[
+    {ty:'mc', q:'At 9 am I ___ breakfast.', o:['was having','were having','am having','had'], a:0, e:'I → was having.'},
+    {ty:'mc', q:'While she ___, it started to rain.', o:['walks','was walking','walked','is walking'], a:1, e:'azione in corso → was walking.'},
+    {ty:'fill', q:'Completa:', s:'They ___ (watch) a film at 10 pm.', a:'were watching', acc:[], e:'they → were + ing.'},
+    {ty:'fill', q:'Completa:', s:'When the phone rang, I ___ (cook).', a:'was cooking', acc:[], e:'azione in corso → was cooking.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Stavamo aspettando l\'autobus.', a:'We were waiting for the bus.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I was play tennis.', a:'I was playing tennis.', acc:[], e:'serve la forma -ing.'}
+  ]
+},
+{
+  id:'a2-presentperfect', t:'Present Perfect (have + participio)',
+  g:`<p>Si forma con <b>have/has + past participle</b> (worked, gone, seen). Collega <b>passato e presente</b>: esperienze di vita, azioni recenti con effetto sull'ora, situazioni iniziate nel passato e ancora valide.</p>
+  <p>Parole tipiche: <b>ever, never, just, already, yet, for, since</b>. <i>I have just finished. Have you ever been to London? She has lived here for ten years.</i></p>
+  <p>Attenzione: con un tempo passato preciso (yesterday, last year) si usa il <b>past simple</b>, non il present perfect.</p>`,
+  ex:[['I have finished my homework.','Ho finito i compiti.'],['Have you ever eaten sushi?','Hai mai mangiato sushi?'],['She has lived here since 2010.','Vive qui dal 2010.'],["He hasn't arrived yet.",'Non è ancora arrivato.']],
+  qz:[
+    {ty:'mc', q:'I ___ this film before.', o:['saw','have seen','see','am seeing'], a:1, e:'esperienza → present perfect.'},
+    {ty:'mc', q:'She has lived here ___ five years.', o:['since','for','from','ago'], a:1, e:'periodo di durata → for.'},
+    {ty:'fill', q:'Completa (participio):', s:'They have ___ (go) home.', a:'gone', acc:[], e:'go → gone.'},
+    {ty:'fill', q:'Completa:', s:'___ you ever ___ (be) to Paris?', a:'Have been', acc:[], e:'Have you ever been...?'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ho appena mangiato.', a:'I have just eaten.', acc:["I've just eaten."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I have seen him yesterday.', a:'I saw him yesterday.', acc:[], e:'yesterday → past simple.'}
+  ]
+},
+{
+  id:'a2-comparatives', t:'Comparativi e superlativi',
+  g:`<p>Aggettivi <b>corti</b> (1 sillaba): comparativo <b>-er + than</b>, superlativo <b>the -est</b> (cheap → cheaper → the cheapest). Con -y: happy → happier → the happiest.</p>
+  <p>Aggettivi <b>lunghi</b> (2+ sillabe): <b>more ... than</b> / <b>the most ...</b> (expensive → more expensive → the most expensive).</p>
+  <p>Irregolari: good → better → the best; bad → worse → the worst; far → further/farther → the furthest.</p>`,
+  ex:[['This car is cheaper than that one.','Questa auto è più economica di quella.'],['She is the tallest in the class.','È la più alta della classe.'],['It is more difficult than I thought.','È più difficile di quanto pensassi.'],['Today is the best day.','Oggi è il giorno migliore.']],
+  qz:[
+    {ty:'mc', q:'My house is ___ than yours.', o:['big','bigger','biggest','more big'], a:1, e:'corto → -er.'},
+    {ty:'mc', q:'This is ___ restaurant in town.', o:['expensive','more expensive','the most expensive','expensiver'], a:2, e:'lungo → the most.'},
+    {ty:'fill', q:'Completa:', s:'Health is ___ (good → comparativo) than money.', a:'better', acc:[], e:'good → better.'},
+    {ty:'fill', q:'Superlativo:', s:'He is the ___ (happy) person I know.', a:'happiest', acc:[], e:'happy → happiest.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Lei è più veloce di me.', a:'She is faster than me.', acc:['She is faster than I am.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'This is more cheaper.', a:'This is cheaper.', acc:[], e:'non si usano both more + -er.'}
+  ]
+},
+{
+  id:'a2-future', t:'Futuro: will / be going to',
+  g:`<p><b>will + base</b>: decisioni prese sul momento, previsioni, promesse: <i>I'll help you. It will rain tomorrow.</i></p>
+  <p><b>be going to + base</b>: intenzioni e piani già decisi, e previsioni basate su prove evidenti: <i>I'm going to study tonight. Look at those clouds — it's going to rain.</i></p>
+  <p>Il <b>present continuous</b> si usa per accordi/appuntamenti fissati: <i>I'm meeting John at 5.</i></p>`,
+  ex:[["I'll call you later.",'Ti chiamerò più tardi.'],["We're going to buy a house.",'Compreremo una casa.'],['It will be sunny.','Sarà soleggiato.'],["I'm seeing the doctor tomorrow.",'Domani vedo il dottore.']],
+  qz:[
+    {ty:'mc', q:'The phone is ringing. I ___ answer it.', o:['will','am going to','going to','am'], a:0, e:'decisione sul momento → will.'},
+    {ty:'mc', q:'Look at the sky! It ___ rain.', o:['will','is going to','goes to','shall'], a:1, e:'prova evidente → going to.'},
+    {ty:'fill', q:'Completa (piano deciso):', s:'We ___ (visit) Spain next summer.', a:'are going to visit', acc:[], e:'piano → going to.'},
+    {ty:'fill', q:'Completa (promessa):', s:'I ___ (help) you, I promise.', a:'will help', acc:["'ll help"], e:'promessa → will.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Domani pioverà.', a:'It will rain tomorrow.', acc:["It's going to rain tomorrow."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I will to call you.', a:'I will call you.', acc:["I'll call you."], e:'dopo will → base senza to.'}
+  ]
+},
+{
+  id:'a2-countable', t:'Quantità: some/any, much/many',
+  g:`<p><b>some</b> nelle affermative, <b>any</b> in negative e domande: <i>I have some bread. Is there any milk? We don't have any eggs.</i></p>
+  <p><b>much</b> con non numerabili (much water), <b>many</b> con numerabili plurali (many books). <b>a lot of / lots of</b> vanno bene con entrambi nelle affermative.</p>
+  <p><b>(a) few</b> con numerabili, <b>(a) little</b> con non numerabili.</p>`,
+  ex:[['There is some juice.','C\'è del succo.'],['Are there any apples?','Ci sono delle mele?'],['How much sugar?','Quanto zucchero?'],['How many people?','Quante persone?']],
+  qz:[
+    {ty:'mc', q:'How ___ money do you have?', o:['many','much','few','any'], a:1, e:'money non numerabile → much.'},
+    {ty:'mc', q:'I don\'t have ___ friends here.', o:['some','much','many','a little'], a:2, e:'numerabile + negativo → many.'},
+    {ty:'fill', q:'some o any?', s:'Would you like ___ coffee?', a:'some', acc:[], e:'offerta → some.'},
+    {ty:'fill', q:'much o many?', s:'There are too ___ cars.', a:'many', acc:[], e:'cars numerabile → many.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Non c\'è zucchero.', a:"There isn't any sugar.", acc:['There is no sugar.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'How much books do you read?', a:'How many books do you read?', acc:[], e:'books numerabile → many.'}
+  ]
+},
+{
+  id:'a2-usedto', t:'Used to (abitudini passate)',
+  g:`<p><b>used to + verbo base</b> descrive abitudini o situazioni del passato che <b>non sono più vere</b>: <i>I used to smoke. She used to live in Rome.</i></p>
+  <p>Negazione/domanda con <b>did</b>: <i>I didn't use to like coffee. Did you use to play sports?</i> (nota: <b>use to</b> senza -d dopo did).</p>`,
+  ex:[['I used to play tennis.','Una volta giocavo a tennis.'],['We used to live by the sea.','Vivevamo al mare.'],["He didn't use to eat meat.",'Una volta non mangiava carne.'],['Did you use to smoke?','Fumavi una volta?']],
+  qz:[
+    {ty:'mc', q:'I ___ have long hair.', o:['use to','used to','used','am used to'], a:1, e:'abitudine passata → used to.'},
+    {ty:'mc', q:'Negativo: She ___ like tea.', o:["didn't used to","didn't use to","don't use to","used not"], a:1, e:'did + use to (senza -d).'},
+    {ty:'fill', q:'Completa:', s:'They ___ to live in London.', a:'used', acc:[], e:'used to.'},
+    {ty:'fill', q:'Domanda:', s:'Did you ___ to play the piano?', a:'use', acc:[], e:'dopo did → use (senza -d).'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Una volta lavoravo qui.', a:'I used to work here.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I use to live in Paris.', a:'I used to live in Paris.', acc:[], e:'affermativo → used to.'}
+  ]
+},
+{
+  id:'a2-conditionals01', t:'Condizionale zero e primo (0 & 1st)',
+  g:`<p><b>Zero conditional</b>: verità generali. <i>If + present simple, present simple</i>: <i>If you heat ice, it melts.</i></p>
+  <p><b>First conditional</b>: situazioni reali/probabili nel futuro. <i>If + present simple, will + base</i>: <i>If it rains, I'll stay home.</i></p>
+  <p>Dopo <b>if</b> non si usa "will". Si può usare <b>when</b> per cose certe: <i>When I get home, I'll call you.</i></p>`,
+  ex:[['If you mix blue and yellow, you get green.','Se mescoli blu e giallo, ottieni il verde.'],["If I have time, I'll help you.",'Se ho tempo, ti aiuterò.'],['If it rains, we will cancel.','Se piove, annulleremo.'],["You'll pass if you study.",'Passerai se studi.']],
+  qz:[
+    {ty:'mc', q:'If you heat water, it ___ .', o:['will boil','boils','boil','boiled'], a:1, e:'zero conditional → present.'},
+    {ty:'mc', q:'If it rains, we ___ at home.', o:['stay','will stay','stayed','staying'], a:1, e:'1st conditional → will.'},
+    {ty:'fill', q:'Completa:', s:'If you ___ (study), you will pass.', a:'study', acc:[], e:'dopo if → present.'},
+    {ty:'fill', q:'Completa:', s:'If I see her, I ___ (tell) her.', a:'will tell', acc:["'ll tell"], e:'risultato futuro → will.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Se fa freddo, resterò a casa.', a:'If it is cold, I will stay home.', acc:["If it's cold, I'll stay home."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'If it will rain, I will stay.', a:'If it rains, I will stay.', acc:[], e:'dopo if niente will.'}
+  ]
+}
+];
+window.CURRICULUM = window.CURRICULUM || {};
+window.CURRICULUM.B1 = [
+{
+  id:'b1-pp-vs-past', t:'Present Perfect vs Past Simple',
+  g:`<p>Il <b>past simple</b> indica un'azione finita in un tempo passato <b>definito</b> (yesterday, in 2010, two days ago). Il <b>present perfect</b> indica un legame col presente: tempo <b>non specificato</b>, esperienza, o periodo non ancora concluso (today, this week).</p>
+  <p>Confronta: <i>I saw her yesterday</i> (quando preciso) vs <i>I have seen her recently</i> (quando indefinito).</p>
+  <p>Con <b>for/since</b> e situazioni ancora in corso → present perfect: <i>I have worked here since 2018.</i></p>`,
+  ex:[['I lost my keys yesterday.','Ho perso le chiavi ieri.'],["I've lost my keys (I can't find them now).",'Ho perso le chiavi (non le trovo).'],['Did you call her this morning?','L\'hai chiamata stamattina?'],['Have you called her today?','L\'hai chiamata oggi?']],
+  qz:[
+    {ty:'mc', q:'I ___ to Japan in 2019.', o:['have been','went','have gone','go'], a:1, e:'tempo definito → past simple.'},
+    {ty:'mc', q:'___ you ever ___ a famous person?', o:['Did / meet','Have / met','Have / meet','Did / met'], a:1, e:'esperienza → present perfect.'},
+    {ty:'fill', q:'Completa:', s:'She ___ (live) in Rome for ten years (ancora ora).', a:'has lived', acc:["'s lived"], e:'situazione attuale → present perfect.'},
+    {ty:'fill', q:'Completa:', s:'We ___ (watch) a great film last night.', a:'watched', acc:[], e:'last night → past simple.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Vivo qui da tre anni.', a:'I have lived here for three years.', acc:["I've lived here for three years."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I have finished the report two hours ago.', a:'I finished the report two hours ago.', acc:[], e:'"ago" → past simple.'}
+  ]
+},
+{
+  id:'b1-conditionals2', t:'Secondo condizionale (2nd conditional)',
+  g:`<p>Per situazioni <b>irreali, improbabili o ipotetiche</b> nel presente/futuro. Struttura: <i>If + past simple, would + base</i>: <i>If I won the lottery, I would travel the world.</i></p>
+  <p>Con il verbo "be" si usa spesso <b>were</b> per tutte le persone: <i>If I were you, I would apologize.</i></p>`,
+  ex:[['If I had more time, I would learn Spanish.','Se avessi più tempo, imparerei lo spagnolo.'],['If I were rich, I would help others.','Se fossi ricco, aiuterei gli altri.'],['What would you do if you lost your job?','Cosa faresti se perdessi il lavoro?'],["She'd come if you invited her.",'Verrebbe se la invitassi.']],
+  qz:[
+    {ty:'mc', q:'If I ___ you, I would accept the offer.', o:['am','was','were','be'], a:2, e:'2nd cond. con be → were.'},
+    {ty:'mc', q:'If we had a car, we ___ travel more.', o:['will','would','can','would have'], a:1, e:'risultato ipotetico → would.'},
+    {ty:'fill', q:'Completa:', s:'If I ___ (know) the answer, I would tell you.', a:'knew', acc:[], e:'dopo if → past simple.'},
+    {ty:'fill', q:'Completa:', s:'If she had money, she ___ (buy) a house.', a:'would buy', acc:["'d buy"], e:'would + base.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Se vincessi, comprerei una macchina.', a:'If I won, I would buy a car.', acc:["If I won, I'd buy a car."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'If I would have time, I would help.', a:'If I had time, I would help.', acc:[], e:'dopo if → past simple, non would.'}
+  ]
+},
+{
+  id:'b1-passive', t:'Passivo (present & past simple)',
+  g:`<p>Il passivo sposta l'attenzione sull'<b>oggetto</b> dell'azione. Struttura: <b>be + past participle</b>. Present: <i>English is spoken here.</i> Past: <i>The house was built in 1990.</i></p>
+  <p>Chi compie l'azione (l'agente) si introduce con <b>by</b>, se rilevante: <i>The book was written by Orwell.</i></p>`,
+  ex:[['Coffee is grown in Brazil.','Il caffè è coltivato in Brasile.'],['The window was broken yesterday.','La finestra è stata rotta ieri.'],['These cars are made in Italy.','Queste auto sono fatte in Italia.'],['The letter was sent last week.','La lettera è stata spedita la settimana scorsa.']],
+  qz:[
+    {ty:'mc', q:'This bridge ___ in 1930.', o:['built','was built','is built','has built'], a:1, e:'passato passivo → was built.'},
+    {ty:'mc', q:'English ___ all over the world.', o:['speaks','is speaking','is spoken','spoken'], a:2, e:'present passive → is spoken.'},
+    {ty:'fill', q:'Trasforma al passivo:', s:'Millions of people ___ (visit) this museum every year.', a:'visit', acc:[], e:'attivo qui; passivo: is visited by...'},
+    {ty:'fill', q:'Completa (passivo passato):', s:'The cake ___ (eat) by the children.', a:'was eaten', acc:[], e:'be + participio.'},
+    {ty:'tr', q:'Traduci in inglese (passivo):', it:'Il libro è stato scritto da Orwell.', a:'The book was written by Orwell.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'The car was stole last night.', a:'The car was stolen last night.', acc:[], e:'serve il participio: stolen.'}
+  ]
+},
+{
+  id:'b1-reported', t:'Discorso indiretto (Reported Speech)',
+  g:`<p>Si riferisce ciò che qualcuno ha detto. Di solito i tempi <b>retrocedono</b> di un passo (backshift): present → past, past → past perfect, will → would, can → could.</p>
+  <p>Cambiano anche pronomi ed espressioni di tempo: <i>now → then, today → that day, tomorrow → the next day</i>. Es.: "I am tired" → <i>She said (that) she was tired.</i></p>
+  <p>Domande riportate: si usa l'ordine affermativo: "Where do you live?" → <i>He asked where I lived.</i></p>`,
+  ex:[['"I\'m busy" → He said he was busy.','"Sono occupato" → Disse che era occupato.'],['"I\'ll call you" → She said she would call me.','"Ti chiamerò" → Disse che mi avrebbe chiamato.'],['"Do you like it?" → He asked if I liked it.','"Ti piace?" → Mi chiese se mi piacesse.'],['"I saw him" → She said she had seen him.','"L\'ho visto" → Disse che lo aveva visto.']],
+  qz:[
+    {ty:'mc', q:'"I am tired." → She said she ___ tired.', o:['is','was','were','has been'], a:1, e:'present → past.'},
+    {ty:'mc', q:'"I will help." → He said he ___ help.', o:['will','would','can','had'], a:1, e:'will → would.'},
+    {ty:'fill', q:'Riporta:', s:'"I live in Rome." → He said he ___ in Rome.', a:'lived', acc:[], e:'present → past.'},
+    {ty:'fill', q:'Domanda riportata:', s:'"Where are you?" → She asked where I ___ .', a:'was', acc:[], e:'ordine affermativo + backshift.'},
+    {ty:'tr', q:'Riporta in inglese:', it:'Disse che era stanca.', a:'She said she was tired.', acc:['She said that she was tired.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'He asked where do I live.', a:'He asked where I lived.', acc:[], e:'domanda indiretta → ordine affermativo.'}
+  ]
+},
+{
+  id:'b1-modals-obligation', t:'Modali di obbligo e consiglio',
+  g:`<p><b>must</b> = obbligo forte (spesso interno): <i>I must finish this.</i> <b>have to</b> = obbligo esterno/regola: <i>You have to wear a helmet.</i></p>
+  <p><b>mustn't</b> = divieto (non devi/è vietato). <b>don't have to</b> = non è necessario (manca l'obbligo). Attenzione: significati diversi!</p>
+  <p><b>should / ought to</b> = consiglio: <i>You should rest.</i></p>`,
+  ex:[['You must stop at the red light.','Devi fermarti col rosso.'],['You have to show your ID.','Devi mostrare il documento.'],["You mustn't smoke here.",'Non devi fumare qui (vietato).'],["You don't have to come.",'Non sei obbligato a venire.']],
+  qz:[
+    {ty:'mc', q:'Vietato: You ___ park here.', o:["don't have to","mustn't","should","have to"], a:1, e:'divieto → mustn\'t.'},
+    {ty:'mc', q:'Non necessario: You ___ pay, it\'s free.', o:["mustn't","don't have to","must","should"], a:1, e:'assenza di obbligo → don\'t have to.'},
+    {ty:'fill', q:'Consiglio:', s:'You ___ see a doctor.', a:'should', acc:['ought to'], e:'consiglio → should.'},
+    {ty:'fill', q:'Obbligo esterno (regola):', s:'At work we ___ wear a uniform.', a:'have to', acc:['must'], e:'regola → have to.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Non devi fumare qui (è vietato).', a:"You mustn't smoke here.", acc:['You must not smoke here.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:"You don't must do it.", a:"You mustn't do it.", acc:["You don't have to do it."], e:'forma errata di must.'}
+  ]
+},
+{
+  id:'b1-relative', t:'Pronomi relativi (who, which, that, where)',
+  g:`<p><b>who</b> per persone, <b>which</b> per cose, <b>that</b> per entrambi (informale), <b>where</b> per luoghi, <b>whose</b> per possesso.</p>
+  <p>Frasi relative <b>determinative</b> (essenziali) senza virgole: <i>The man who called is my boss.</i> Frasi <b>non determinative</b> (informazione extra) tra virgole, non si usa "that": <i>My brother, who lives in Rome, is a doctor.</i></p>`,
+  ex:[['The book that I read was great.','Il libro che ho letto era ottimo.'],['She is the woman who helped me.','È la donna che mi ha aiutato.'],['This is the house where I grew up.','Questa è la casa dove sono cresciuto.'],['He has a friend whose car is red.','Ha un amico la cui auto è rossa.']],
+  qz:[
+    {ty:'mc', q:'The man ___ lives next door is friendly.', o:['which','who','where','whose'], a:1, e:'persona → who.'},
+    {ty:'mc', q:'This is the restaurant ___ we met.', o:['which','who','where','that'], a:2, e:'luogo → where.'},
+    {ty:'fill', q:'Completa:', s:'I have a friend ___ brother is a pilot.', a:'whose', acc:[], e:'possesso → whose.'},
+    {ty:'fill', q:'Completa (cosa):', s:'The car ___ I bought is fast.', a:'that', acc:['which'], e:'cosa → that/which.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'La donna che mi ha chiamato è mia zia.', a:'The woman who called me is my aunt.', acc:['The woman that called me is my aunt.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'The phone who I bought is new.', a:'The phone that I bought is new.', acc:['The phone which I bought is new.'], e:'cosa → that/which.'}
+  ]
+},
+{
+  id:'b1-gerinf', t:'Gerundio o infinito (-ing / to)',
+  g:`<p>Alcuni verbi vogliono il <b>gerundio</b> (-ing): <i>enjoy, finish, avoid, suggest, mind, keep</i>. Es.: <i>I enjoy reading.</i></p>
+  <p>Altri vogliono l'<b>infinito con to</b>: <i>want, decide, hope, promise, need, would like</i>. Es.: <i>I want to go.</i></p>
+  <p>Dopo le <b>preposizioni</b> sempre -ing: <i>good at cooking, interested in learning.</i></p>`,
+  ex:[['I enjoy swimming.','Mi piace nuotare.'],['She decided to leave.','Decise di andarsene.'],['He is good at drawing.','È bravo a disegnare.'],['They want to travel.','Vogliono viaggiare.']],
+  qz:[
+    {ty:'mc', q:'I enjoy ___ to music.', o:['listen','to listen','listening','listened'], a:2, e:'enjoy + -ing.'},
+    {ty:'mc', q:'She wants ___ a doctor.', o:['become','becoming','to become','becomes'], a:2, e:'want + to.'},
+    {ty:'fill', q:'Completa:', s:"They're interested in ___ (learn) Italian.", a:'learning', acc:[], e:'dopo preposizione → -ing.'},
+    {ty:'fill', q:'Completa:', s:'I promised ___ (help) him.', a:'to help', acc:[], e:'promise + to.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ho finito di lavorare.', a:'I finished working.', acc:[], e:'finish + -ing.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I want going home.', a:'I want to go home.', acc:[], e:'want + to.'}
+  ]
+}
+];
+window.CURRICULUM = window.CURRICULUM || {};
+window.CURRICULUM.B2 = [
+{
+  id:'b2-narrative', t:'Narrative tenses (past perfect & continuous)',
+  g:`<p>Per raccontare al passato si combinano: <b>past simple</b> (eventi principali), <b>past continuous</b> (sfondo in corso), <b>past perfect</b> (azione precedente: had + participio), <b>past perfect continuous</b> (durata fino a un punto: had been + -ing).</p>
+  <p>Es.: <i>When I arrived, the meeting had already started. I was tired because I had been working all day.</i></p>`,
+  ex:[['The train had left when we arrived.','Il treno era partito quando arrivammo.'],['She had been waiting for an hour.','Aspettava da un\'ora.'],['He was driving when it happened.','Stava guidando quando successe.'],['They had never seen snow before.','Non avevano mai visto la neve prima.']],
+  qz:[
+    {ty:'mc', q:'When we got there, the film ___ already ___ .', o:['has / started','had / started','was / starting','had / start'], a:1, e:'azione precedente → past perfect.'},
+    {ty:'mc', q:'I was exhausted because I ___ all night.', o:['had been studying','was studying','have studied','studied'], a:0, e:'durata fino a un punto → past perfect continuous.'},
+    {ty:'fill', q:'Completa:', s:'By the time she called, I ___ (leave).', a:'had left', acc:[], e:'azione anteriore → had + participio.'},
+    {ty:'fill', q:'Completa:', s:'They were tired because they ___ (run).', a:'had been running', acc:[], e:'past perfect continuous.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Quando arrivai, lui era già andato via.', a:'When I arrived, he had already left.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'After I had ate, I went out.', a:'After I had eaten, I went out.', acc:[], e:'participio: eaten.'}
+  ]
+},
+{
+  id:'b2-conditionals3', t:'Terzo condizionale e condizionali misti',
+  g:`<p><b>Third conditional</b>: situazioni irreali del <b>passato</b> (rimpianti). <i>If + past perfect, would have + participio</i>: <i>If I had studied, I would have passed.</i></p>
+  <p><b>Mixed conditionals</b>: condizione passata → risultato presente (<i>If I had taken that job, I would be rich now</i>), oppure condizione presente → risultato passato.</p>`,
+  ex:[["If you had told me, I would have helped.",'Se me l\'avessi detto, ti avrei aiutato.'],["She wouldn't have missed the train if she had left earlier.",'Non avrebbe perso il treno se fosse uscita prima.'],['If I were taller, I would have become a model.','Se fossi più alto, sarei diventato un modello.'],["If they had saved money, they'd own a house now.",'Se avessero risparmiato, ora avrebbero una casa.']],
+  qz:[
+    {ty:'mc', q:'If I had known, I ___ you.', o:['would tell','would have told','told','will tell'], a:1, e:'3rd cond. → would have + participio.'},
+    {ty:'mc', q:'If she ___ harder, she would have won.', o:['trained','had trained','has trained','would train'], a:1, e:'dopo if → past perfect.'},
+    {ty:'fill', q:'Completa:', s:'If we had left earlier, we ___ (not/miss) the flight.', a:"wouldn't have missed", acc:['would not have missed'], e:''},
+    {ty:'fill', q:'Mixed:', s:'If I ___ (be) more careful, I wouldn\'t be in trouble now.', a:'had been', acc:[], e:'passato → presente.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Se avessi studiato, avrei superato l\'esame.', a:'If I had studied, I would have passed the exam.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'If I would have known, I would have come.', a:'If I had known, I would have come.', acc:[], e:'dopo if → past perfect, non would.'}
+  ]
+},
+{
+  id:'b2-modals-deduction', t:'Modali di deduzione (must/can\'t/might have)',
+  g:`<p>Per dedurre il <b>presente</b>: <b>must</b> (sicuro di sì), <b>can't</b> (sicuro di no), <b>might/may/could</b> (forse). <i>He must be tired. She can't be serious. It might rain.</i></p>
+  <p>Per il <b>passato</b>: <b>must have / can't have / might have + participio</b>: <i>He must have forgotten. She can't have seen us. They might have left.</i></p>`,
+  ex:[['You must be joking!','Stai sicuramente scherzando!'],["He can't have finished already.",'Non può aver già finito.'],['She might have missed the bus.','Forse ha perso l\'autobus.'],["They must have known.",'Devono averlo saputo.']],
+  qz:[
+    {ty:'mc', q:'The lights are off. They ___ be out.', o:['must','can\'t','should','would'], a:0, e:'deduzione sicura → must.'},
+    {ty:'mc', q:'He ___ have heard us; he was asleep.', o:['must','can\'t','might','should'], a:1, e:'impossibilità passata → can\'t have.'},
+    {ty:'fill', q:'Completa (forse, passato):', s:'She isn\'t here. She ___ (might/leave) early.', a:'might have left', acc:['may have left','could have left'], e:''},
+    {ty:'fill', q:'Completa (sicuro, passato):', s:'The ground is wet. It ___ (must/rain).', a:'must have rained', acc:[], e:'deduzione passata → must have + participio.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Deve aver dimenticato.', a:'He must have forgotten.', acc:['She must have forgotten.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'She must has left.', a:'She must have left.', acc:[], e:'must + have + participio.'}
+  ]
+},
+{
+  id:'b2-future-forms', t:'Future Continuous & Future Perfect',
+  g:`<p><b>Future continuous</b> (will be + -ing): azione in corso in un momento futuro: <i>This time tomorrow I'll be flying to Rome.</i></p>
+  <p><b>Future perfect</b> (will have + participio): azione che sarà completata entro un certo momento: <i>By 2030 they will have finished the project.</i></p>
+  <p><b>Future perfect continuous</b> (will have been + -ing): durata fino a un punto futuro: <i>By June I'll have been working here for ten years.</i></p>`,
+  ex:[["At 8 pm I'll be having dinner.",'Alle 20 starò cenando.'],['By Friday I will have finished.','Entro venerdì avrò finito.'],["Next year we'll have been married for 20 years.",'L\'anno prossimo saremo sposati da 20 anni.'],["Don't call at 9 — I'll be sleeping.",'Non chiamare alle 9 — starò dormendo.']],
+  qz:[
+    {ty:'mc', q:'This time next week I ___ on a beach.', o:['will lie','will be lying','will have lain','lie'], a:1, e:'azione in corso nel futuro → will be + ing.'},
+    {ty:'mc', q:'By midnight they ___ the work.', o:['will finish','will be finishing','will have finished','finish'], a:2, e:'completata entro → future perfect.'},
+    {ty:'fill', q:'Completa:', s:'By 2026 I ___ (live) here for five years.', a:'will have lived', acc:["'ll have lived"], e:'future perfect (durata).'},
+    {ty:'fill', q:'Completa:', s:'At 10 am tomorrow we ___ (drive) to London.', a:'will be driving', acc:["'ll be driving"], e:'future continuous.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Entro domani avrò finito.', a:'By tomorrow I will have finished.', acc:["By tomorrow I'll have finished."], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'By Friday I will finished it.', a:'By Friday I will have finished it.', acc:[], e:'future perfect → will have + participio.'}
+  ]
+},
+{
+  id:'b2-wish', t:'Wish / If only',
+  g:`<p><b>wish + past simple</b>: desideri sul presente (irreale): <i>I wish I had more time.</i></p>
+  <p><b>wish + past perfect</b>: rimpianti sul passato: <i>I wish I had studied harder.</i></p>
+  <p><b>wish + would</b>: fastidio per abitudini altrui o desiderio di cambiamento: <i>I wish you would stop smoking.</i> <b>If only</b> è un'alternativa più enfatica.</p>`,
+  ex:[['I wish I were taller.','Vorrei essere più alto.'],['I wish I had known.','Vorrei averlo saputo.'],['I wish it would stop raining.','Vorrei che smettesse di piovere.'],['If only I had more money.','Se solo avessi più soldi.']],
+  qz:[
+    {ty:'mc', q:'I wish I ___ how to swim. (ora)', o:['know','knew','have known','will know'], a:1, e:'desiderio presente → past simple.'},
+    {ty:'mc', q:'I wish I ___ to the party. (rimpianto passato)', o:['went','had gone','would go','go'], a:1, e:'rimpianto → past perfect.'},
+    {ty:'fill', q:'Completa:', s:'I wish you ___ (stop) interrupting me.', a:'would stop', acc:[], e:'fastidio → wish + would.'},
+    {ty:'fill', q:'Completa:', s:'If only I ___ (be) on holiday now.', a:'were', acc:['was'], e:'desiderio presente → past (were).'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Vorrei aver studiato di più.', a:'I wish I had studied more.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I wish I would be richer.', a:'I wish I were richer.', acc:['I wish I was richer.'], e:'desiderio sul proprio stato → past simple.'}
+  ]
+},
+{
+  id:'b2-relative-clauses', t:'Relative clauses (defining & non-defining)',
+  g:`<p>Le <b>defining</b> danno informazione essenziale, niente virgole, "that" possibile, il pronome può essere omesso se è oggetto: <i>The book (that) I read...</i></p>
+  <p>Le <b>non-defining</b> aggiungono info extra, tra virgole, niente "that", pronome non omettibile: <i>My boss, who is from Spain, speaks four languages.</i></p>
+  <p>Si possono usare anche con <b>preposizione</b> in stile formale: <i>the colleague to whom I spoke.</i></p>`,
+  ex:[['The woman who lives here is a vet.','La donna che abita qui è veterinaria.'],['Paris, which is the capital of France, is beautiful.','Parigi, che è la capitale della Francia, è bellissima.'],['The film (that) we saw was boring.','Il film che abbiamo visto era noioso.'],['This is the reason why he left.','Questo è il motivo per cui se n\'è andato.']],
+  qz:[
+    {ty:'mc', q:'My sister, ___ lives in Rome, is a nurse.', o:['that','who','which','where'], a:1, e:'non-defining + persona → who (no that).'},
+    {ty:'mc', q:'In quale frase si può omettere il pronome? "The man ___ I met."', o:['who/that (oggetto, omettibile)','who (soggetto)','whose','where'], a:0, e:'pronome oggetto → omettibile.'},
+    {ty:'fill', q:'Completa (non-defining, cosa):', s:'London, ___ is very large, has great museums.', a:'which', acc:[], e:'cosa, extra info → which.'},
+    {ty:'fill', q:'Completa (formale):', s:'The person to ___ I spoke was helpful.', a:'whom', acc:[], e:'dopo preposizione → whom.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Mio fratello, che vive a Londra, è medico.', a:'My brother, who lives in London, is a doctor.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'My car, that is red, is fast.', a:'My car, which is red, is fast.', acc:[], e:'non-defining → which, non that.'}
+  ]
+},
+{
+  id:'b2-phrasal', t:'Phrasal verbs (estesi)',
+  g:`<p>I <b>phrasal verbs</b> sono verbo + particella (avverbio/preposizione) con significato spesso idiomatico: <i>give up</i> (rinunciare), <i>look after</i> (prendersi cura), <i>put off</i> (rimandare), <i>get on with</i> (andare d'accordo).</p>
+  <p>Alcuni sono <b>separabili</b> (turn the light off / turn off the light), altri <b>inseparabili</b> (look after the kids). Con i pronomi i separabili devono dividersi: <i>turn it off</i> (non "turn off it").</p>`,
+  ex:[['I gave up smoking.','Ho smesso di fumare.'],['Can you look after my dog?','Puoi badare al mio cane?'],['They put off the meeting.','Hanno rimandato la riunione.'],['Turn it off, please.','Spegnilo, per favore.']],
+  qz:[
+    {ty:'mc', q:'"Rimandare" un appuntamento:', o:['put on','put off','put up','put out'], a:1, e:'put off = rimandare.'},
+    {ty:'mc', q:'Con pronome (separabile):', o:['turn off it','turn it off','off turn it','turn off them'], a:1, e:'pronome in mezzo → turn it off.'},
+    {ty:'fill', q:'Completa:', s:'I get ___ well with my colleagues.', a:'on', acc:[], e:'get on with = andare d\'accordo.'},
+    {ty:'fill', q:'Completa:', s:'Please look ___ the children.', a:'after', acc:[], e:'look after = badare a.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ho rinunciato.', a:'I gave up.', acc:[], e:'give up = rinunciare.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'Turn off it.', a:'Turn it off.', acc:[], e:'pronome → in mezzo.'}
+  ]
+}
+];
+window.CURRICULUM = window.CURRICULUM || {};
+window.CURRICULUM.C1 = [
+{
+  id:'c1-inversion', t:'Inversione con avverbi negativi',
+  g:`<p>In stile formale/enfatico, avverbi e locuzioni negative a inizio frase provocano l'<b>inversione</b> soggetto-ausiliare (come in una domanda): <i>Never have I seen such a mess. Not only did he lie, but he also...</i></p>
+  <p>Tipiche: <b>Never, Rarely, Seldom, Hardly... when, No sooner... than, Not only... but also, Little, Only then, Under no circumstances.</b></p>`,
+  ex:[['Never have I been so insulted.','Mai sono stato così insultato.'],['No sooner had I arrived than it started to rain.','Non appena arrivai, iniziò a piovere.'],['Not only is she clever, but she is also kind.','Non solo è intelligente, ma anche gentile.'],['Under no circumstances should you open it.','In nessun caso devi aprirlo.']],
+  qz:[
+    {ty:'mc', q:'Never ___ such a beautiful place.', o:['I have seen','have I seen','I saw','did I saw'], a:1, e:'inversione → have I seen.'},
+    {ty:'mc', q:'Not only ___ late, but he forgot the keys.', o:['he was','was he','he is','did he'], a:1, e:'inversione → was he.'},
+    {ty:'fill', q:'Completa (inversione):', s:'Rarely ___ (do) we see such talent.', a:'do', acc:[], e:'Rarely do we see...'},
+    {ty:'fill', q:'Completa:', s:'No sooner had we sat down ___ the phone rang.', a:'than', acc:[], e:'No sooner... than.'},
+    {ty:'tr', q:'Traduci in inglese (inversione):', it:'Solo allora capii la verità.', a:'Only then did I understand the truth.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'Never I have eaten so much.', a:'Never have I eaten so much.', acc:[], e:'serve inversione.'}
+  ]
+},
+{
+  id:'c1-cleft', t:'Cleft sentences (frasi scisse)',
+  g:`<p>Le cleft sentences mettono in <b>risalto</b> un elemento. <b>It-cleft</b>: <i>It was John who broke it.</i> <b>Wh-cleft</b>: <i>What I need is a holiday. What he did was (to) call the police.</i></p>
+  <p>Servono per enfasi, contrasto o chiarimento, molto usate nello scritto e nel parlato curato.</p>`,
+  ex:[['It was Maria who called.','È stata Maria a chiamare.'],['What I want is some peace.','Quello che voglio è un po\' di pace.'],['It is money that he cares about.','È del denaro che gli importa.'],['What surprised me was his honesty.','Ciò che mi sorprese fu la sua onestà.']],
+  qz:[
+    {ty:'mc', q:'___ I really need is more time.', o:['That','What','Which','It'], a:1, e:'wh-cleft → What.'},
+    {ty:'mc', q:'It was in 2010 ___ they met.', o:['when','that','which','what'], a:1, e:'it-cleft → that.'},
+    {ty:'fill', q:'Completa (it-cleft):', s:'It ___ Tom who helped us, not Jim.', a:'was', acc:[], e:'It was Tom who...'},
+    {ty:'fill', q:'Completa (wh-cleft):', s:'What she ___ was apologize.', a:'did', acc:[], e:'What she did was...'},
+    {ty:'tr', q:'Traduci in inglese (cleft):', it:'Ciò di cui ho bisogno è riposo.', a:'What I need is rest.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'What I need are a break.', a:'What I need is a break.', acc:[], e:'wh-cleft → verbo singolare (is).'}
+  ]
+},
+{
+  id:'c1-participle', t:'Participle clauses (frasi participiali)',
+  g:`<p>Si usano per rendere la frase più <b>concisa e formale</b>, sostituendo frasi relative o subordinate. Participio presente (-ing) per voce attiva/contemporaneità: <i>Feeling tired, she went to bed.</i> Participio passato per significato passivo: <i>Built in 1900, the house is now protected.</i></p>
+  <p>Perfect participle per anteriorità: <i>Having finished, he left.</i></p>`,
+  ex:[['Walking home, I met an old friend.','Tornando a casa, incontrai un vecchio amico.'],['Shocked by the news, she sat down.','Scioccata dalla notizia, si sedette.'],['Having eaten, we went out.','Dopo aver mangiato, uscimmo.'],['The man sitting there is my uncle.','L\'uomo seduto lì è mio zio.']],
+  qz:[
+    {ty:'mc', q:'___ the report, he sent it. (dopo aver finito)', o:['Finishing','Having finished','Finished','Finish'], a:1, e:'anteriorità → having finished.'},
+    {ty:'mc', q:'___ in 1850, the church is famous.', o:['Building','Built','Having built','Build'], a:1, e:'significato passivo → built.'},
+    {ty:'fill', q:'Completa (-ing):', s:'___ (not/know) what to say, I stayed silent.', a:'Not knowing', acc:[], e:'negazione → Not + -ing.'},
+    {ty:'fill', q:'Completa:', s:'The woman ___ (talk) to the boss is new.', a:'talking', acc:[], e:'frase relativa ridotta → talking.'},
+    {ty:'tr', q:'Traduci in inglese (participle):', it:'Sentendomi stanco, andai a letto.', a:'Feeling tired, I went to bed.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'Having ate, we left.', a:'Having eaten, we left.', acc:[], e:'participio: eaten.'}
+  ]
+},
+{
+  id:'c1-mixed-advanced', t:'Condizionali avanzati e inversione',
+  g:`<p>Nello stile formale, i condizionali possono <b>omettere "if"</b> con inversione: <i>Had I known, I would have helped (= If I had known...). Were I you, I'd stay. Should you need anything, call me.</i></p>
+  <p>Si combinano spesso con <b>mixed conditionals</b> per esprimere relazioni complesse tra passato e presente.</p>`,
+  ex:[['Had I known, I would have come.','Se l\'avessi saputo, sarei venuto.'],['Were I in your position, I would resign.','Se fossi al tuo posto, mi dimetterei.'],['Should you have questions, ask me.','Se avessi domande, chiedimi.'],["Had she trained more, she'd be a champion now.",'Se si fosse allenata di più, ora sarebbe campionessa.']],
+  qz:[
+    {ty:'mc', q:'___ I known, I would have told you.', o:['If','Had','Have','Did'], a:1, e:'inversione → Had I known.'},
+    {ty:'mc', q:'___ you need help, call me.', o:['Should','Would','Had','Were'], a:0, e:'condizione formale → Should you.'},
+    {ty:'fill', q:'Riscrivi senza if:', s:'___ I were rich, I would travel. (inversione)', a:'Were', acc:[], e:'Were I rich...'},
+    {ty:'fill', q:'Completa:', s:'Had they ___ (leave) earlier, they would have caught the train.', a:'left', acc:[], e:'Had + participio.'},
+    {ty:'tr', q:'Traduci in inglese (inversione):', it:'Se avessi tempo, ti aiuterei.', a:'Were I to have time, I would help you.', acc:['Had I time, I would help you.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'Had I would have known, I would have come.', a:'Had I known, I would have come.', acc:[], e:'inversione: Had + participio.'}
+  ]
+},
+{
+  id:'c1-linking', t:'Connettivi sofisticati e discourse markers',
+  g:`<p>A livello avanzato si padroneggiano connettivi formali: <b>nevertheless, nonetheless, whereas, albeit, hence, thereby, notwithstanding, provided that, insofar as, despite/in spite of + -ing.</b></p>
+  <p>Attenzione alla struttura: <i>despite/in spite of + nome/-ing</i> (no "of that"), <i>although/though + frase</i>: <i>Despite being tired... / Although he was tired...</i></p>`,
+  ex:[['He failed; nevertheless, he kept trying.','Fallì; ciononostante, continuò a provare.'],['She likes tea, whereas he prefers coffee.','A lei piace il tè, mentre lui preferisce il caffè.'],['Despite the rain, we went out.','Nonostante la pioggia, uscimmo.'],['It was a good, albeit short, holiday.','Fu una bella vacanza, anche se breve.']],
+  qz:[
+    {ty:'mc', q:'___ being ill, she went to work.', o:['Although','Despite','However','Whereas'], a:1, e:'Despite + -ing.'},
+    {ty:'mc', q:'He is rich; ___, he is unhappy.', o:['despite','whereas','nevertheless','although'], a:2, e:'contrasto avverbiale → nevertheless.'},
+    {ty:'fill', q:'Completa:', s:'___ he was tired, he finished the job.', a:'Although', acc:['Though','Even though'], e:'+ frase → although.'},
+    {ty:'fill', q:'Completa:', s:'I like cities, ___ my wife prefers the countryside.', a:'whereas', acc:['while'], e:'contrasto → whereas.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Nonostante fosse stanco, sorrise.', a:'Despite being tired, he smiled.', acc:['In spite of being tired, he smiled.','Although he was tired, he smiled.'], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'Despite of the rain, we left.', a:'Despite the rain, we left.', acc:['In spite of the rain, we left.'], e:'"despite" senza "of".'}
+  ]
+}
+];
+window.CURRICULUM = window.CURRICULUM || {};
+window.CURRICULUM.C2 = [
+{
+  id:'c2-idioms', t:'Espressioni idiomatiche e collocations',
+  g:`<p>A livello di padronanza si usano con naturalezza idiomi e collocations native. Es.: <i>to bite the bullet</i> (affrontare il difficile), <i>once in a blue moon</i> (rarissimamente), <i>the bottom line</i> (il punto chiave), <i>a blessing in disguise</i> (un male che si rivela un bene).</p>
+  <p>Le <b>collocations</b> sono abbinamenti naturali: <i>make a decision, do research, heavy rain, strong coffee, take responsibility.</i></p>`,
+  ex:[['Let\'s bite the bullet and start.','Mordiamo il freno e iniziamo.'],['She visits once in a blue moon.','Viene a trovarci rarissimamente.'],['It was a blessing in disguise.','Fu un male che si rivelò un bene.'],['We need to make a decision.','Dobbiamo prendere una decisione.']],
+  qz:[
+    {ty:'mc', q:'"Rarissimamente":', o:['once in a while','once in a blue moon','time after time','now and then'], a:1, e:'once in a blue moon.'},
+    {ty:'mc', q:'Collocation corretta:', o:['make a research','do a research','do research','make research'], a:2, e:'do research.'},
+    {ty:'fill', q:'Completa la collocation:', s:'You should ___ a decision soon.', a:'make', acc:[], e:'make a decision.'},
+    {ty:'fill', q:'Completa la collocation:', s:'There was ___ rain all day.', a:'heavy', acc:[], e:'heavy rain.'},
+    {ty:'tr', q:'Traduci in inglese (collocation):', it:'Prendere una decisione difficile.', a:'To make a difficult decision.', acc:['Make a difficult decision.'], e:''},
+    {ty:'corr', q:"Correggi la collocation:", w:'I made my homework.', a:'I did my homework.', acc:[], e:'do homework, non make.'}
+  ]
+},
+{
+  id:'c2-nuance', t:'Sfumature: registro e connotazione',
+  g:`<p>La padronanza implica scegliere la parola giusta per <b>registro</b> (formale/informale) e <b>connotazione</b> (positiva/negativa). Es.: <i>thrifty</i> (positivo) vs <i>stingy</i> (negativo) per "parsimonioso"; <i>assertive</i> vs <i>aggressive</i>; <i>childlike</i> vs <i>childish</i>.</p>
+  <p>Formale vs informale: <i>purchase/buy, require/need, commence/start, residence/home.</i></p>`,
+  ex:[["He's thrifty (positivo).",'È parsimonioso (in senso buono).'],["He's stingy (negativo).",'È tirchio.'],['We will commence shortly. (formale)','Inizieremo a breve.'],['Her childlike wonder was charming.','La sua meraviglia da bambino era affascinante.']],
+  qz:[
+    {ty:'mc', q:'Connotazione positiva di "economo":', o:['stingy','mean','thrifty','cheap'], a:2, e:'thrifty è positivo.'},
+    {ty:'mc', q:'Versione formale di "buy":', o:['get','purchase','grab','pick up'], a:1, e:'purchase = formale.'},
+    {ty:'fill', q:'Scegli la parola positiva:', s:'She is very ___ (assertive/aggressive) in meetings, in a good way.', a:'assertive', acc:[], e:'assertive = positivo.'},
+    {ty:'fill', q:'Connotazione negativa:', s:'Stop being so ___ (childlike/childish)!', a:'childish', acc:[], e:'childish = negativo.'},
+    {ty:'tr', q:'Traduci (registro formale):', it:'La riunione inizierà a breve.', a:'The meeting will commence shortly.', acc:['The meeting will begin shortly.'], e:''},
+    {ty:'corr', q:"Migliora il registro (formale):", w:'We need to start the meeting. (rendi formale)', a:'We need to commence the meeting.', acc:['We are required to commence the meeting.'], e:'start → commence.'}
+  ]
+},
+{
+  id:'c2-subjunctive', t:'Congiuntivo e strutture formali',
+  g:`<p>Il congiuntivo inglese (subjunctive) appare in contesti formali dopo verbi di richiesta/proposta: <i>I suggest that he <b>be</b> informed. They demanded that she <b>resign</b>.</i> (forma base, senza -s).</p>
+  <p>Espressioni fisse: <i>Be that as it may, Suffice it to say, If need be, Come what may, Long live the King.</i></p>`,
+  ex:[['I insist that he be present.','Insisto che sia presente.'],['It is essential that she arrive on time.','È essenziale che arrivi puntuale.'],['Be that as it may, we must continue.','Sia come sia, dobbiamo continuare.'],['They recommended that he see a doctor.','Raccomandarono che vedesse un medico.']],
+  qz:[
+    {ty:'mc', q:'I suggest that he ___ informed immediately.', o:['is','be','was','being'], a:1, e:'subjunctive → be.'},
+    {ty:'mc', q:'It is vital that she ___ present.', o:['be','is','was','will be'], a:0, e:'subjunctive → be (forma base).'},
+    {ty:'fill', q:'Completa (subjunctive):', s:'They demanded that he ___ (resign).', a:'resign', acc:[], e:'forma base senza -s.'},
+    {ty:'fill', q:'Completa (espressione fissa):', s:'___ that as it may, I disagree.', a:'Be', acc:[], e:'Be that as it may.'},
+    {ty:'tr', q:'Traduci in inglese (formale):', it:'È essenziale che lui sia informato.', a:'It is essential that he be informed.', acc:[], e:''},
+    {ty:'corr', q:"Correggi l'errore:", w:'I suggest that he is told.', a:'I suggest that he be told.', acc:[], e:'subjunctive → be.'}
+  ]
+},
+{
+  id:'c2-hedging', t:'Hedging e linguaggio sfumato',
+  g:`<p>Nello stile accademico/professionale si <b>attenua</b> l'affermazione (hedging) per cautela e cortesia: <i>It would appear that..., This may suggest that..., There is a tendency for..., to some extent, arguably.</i></p>
+  <p>Permette di esprimere opinioni in modo misurato e di evitare generalizzazioni assolute.</p>`,
+  ex:[['It would appear that costs have risen.','Sembrerebbe che i costi siano aumentati.'],['This may suggest a link.','Ciò potrebbe suggerire un legame.'],['Arguably, it is the best option.','Probabilmente è l\'opzione migliore.'],['To some extent, I agree.','In una certa misura, sono d\'accordo.']],
+  qz:[
+    {ty:'mc', q:'Versione attenuata (hedged):', o:['This proves it.','This may suggest it.','This is definitely true.','It is a fact.'], a:1, e:'hedging → may suggest.'},
+    {ty:'mc', q:'Espressione di cautela:', o:['Obviously','Without doubt','It would appear that','Certainly'], a:2, e:'It would appear that = cautela.'},
+    {ty:'fill', q:'Completa (hedging):', s:'There is a ___ for prices to rise in summer.', a:'tendency', acc:[], e:'a tendency for.'},
+    {ty:'fill', q:'Completa:', s:'To some ___, this is correct.', a:'extent', acc:[], e:'to some extent.'},
+    {ty:'tr', q:'Traduci in inglese (attenuato):', it:'Sembrerebbe che il piano abbia funzionato.', a:'It would appear that the plan worked.', acc:['It would seem that the plan worked.'], e:''},
+    {ty:'corr', q:"Rendi più cauto:", w:'This proves the theory. (attenua)', a:'This may support the theory.', acc:['This would appear to support the theory.'], e:'prove → may support.'}
+  ]
+}
+];
+(function(){
+  function add(lv,id,qs){ var L=window.CURRICULUM[lv]; if(!L) return; var t=L.find(function(x){return x.id===id;}); if(t) t.qz=t.qz.concat(qs); }
+  add('A1','a1-tobe',[
+    {ty:'fill', q:'Completa con TO BE:', s:'My parents ___ at work.', a:'are', acc:["'re"], e:'plurale → are.'},
+    {ty:'fill', q:'Completa con TO BE:', s:'It ___ a beautiful day.', a:'is', acc:["'s"], e:'it → is.'},
+    {ty:'fill', q:'Completa la domanda:', s:'___ she your teacher?', a:'Is', acc:[], e:'she → Is.'},
+    {ty:'mc', q:'We ___ from Italy.', o:['am','is','are','be'], a:2, e:'we → are.'}
+  ]);
+  add('A1','a1-presentsimple',[
+    {ty:'fill', q:'Completa (3ª persona):', s:'He ___ (go) to school by bus.', a:'goes', acc:[], e:'go → goes.'},
+    {ty:'fill', q:'Completa la domanda:', s:'___ they speak English?', a:'Do', acc:[], e:'they → Do.'},
+    {ty:'fill', q:'Completa la negazione:', s:'My brother ___ (not/like) coffee.', a:"doesn't like", acc:['does not like'], e:'he → doesn\'t + base.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Lavoro ogni giorno.', a:'I work every day.', acc:[], e:''}
+  ]);
+  add('A1','a1-presentcont',[
+    {ty:'fill', q:'Completa (-ing):', s:'The baby is ___ (sleep) now.', a:'sleeping', acc:[], e:'sleep → sleeping.'},
+    {ty:'fill', q:'Completa:', s:'We ___ (have) dinner at the moment.', a:'are having', acc:[], e:'we → are + ing.'},
+    {ty:'fill', q:'Completa (-ing):', s:'They are ___ (make) a cake.', a:'making', acc:[], e:'make → making.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'She is writeing a letter.', a:'She is writing a letter.', acc:[], e:'write → writing.'}
+  ]);
+  add('A1','a1-articles',[
+    {ty:'fill', q:'Inserisci a/an/the:', s:'I have ___ idea.', a:'an', acc:[], e:'vocale → an.'},
+    {ty:'fill', q:'Inserisci a/an/the:', s:'___ moon is bright tonight.', a:'The', acc:[], e:'unico → the.'},
+    {ty:'fill', q:'Inserisci a/an o lascia vuoto (-):', s:'She is ___ teacher.', a:'a', acc:[], e:'professione singolare → a.'},
+    {ty:'mc', q:'I drink ___ water every day.', o:['a','an','the','-'], a:3, e:'non numerabile generico → nessun articolo.'}
+  ]);
+  add('A1','a1-plurals',[
+    {ty:'fill', q:'Scrivi il plurale:', s:'one bus, two ___ .', a:'buses', acc:[], e:'-s → -es.'},
+    {ty:'fill', q:'Scrivi il plurale:', s:'one tomato, three ___ .', a:'tomatoes', acc:[], e:'-o → -oes.'},
+    {ty:'fill', q:'Scrivi il plurale:', s:'one foot, two ___ .', a:'feet', acc:[], e:'irregolare: feet.'},
+    {ty:'mc', q:'Plurale di "woman":', o:['womans','women','womans','womens'], a:1, e:'women.'}
+  ]);
+  add('A1','a1-possessive',[
+    {ty:'fill', q:'Completa col possessivo:', s:'I like ___ new phone. (di me)', a:'my', acc:[], e:'I → my.'},
+    {ty:'fill', q:'Completa col possessivo:', s:'The dog wags ___ tail. (di esso)', a:'its', acc:[], e:'it → its (senza apostrofo).'},
+    {ty:'fill', q:'Genitivo sassone (plurale):', s:'These are ___ (my parents) keys.', a:"my parents'", acc:[], e:'plurale in -s → solo apostrofo.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Questa è la sua penna (di lei).', a:'This is her pen.', acc:[], e:''}
+  ]);
+  add('A1','a1-thereis',[
+    {ty:'fill', q:'Completa:', s:'___ a supermarket near here.', a:'There is', acc:["There's"], e:'singolare → there is.'},
+    {ty:'fill', q:'Completa:', s:'___ many books on the shelf.', a:'There are', acc:[], e:'plurale → there are.'},
+    {ty:'fill', q:'Completa la negazione:', s:'There ___ any bread.', a:"isn't", acc:['is not'], e:'bread non numerabile → isn\'t.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'C\'è un problema.', a:'There is a problem.', acc:["There's a problem."], e:''}
+  ]);
+  add('A1','a1-can',[
+    {ty:'fill', q:'Completa:', s:'I ___ (not/can) come tomorrow.', a:"can't", acc:['cannot'], e:'negazione → can\'t.'},
+    {ty:'fill', q:'Completa col verbo base:', s:'They can ___ (speak) English well.', a:'speak', acc:[], e:'dopo can → base.'},
+    {ty:'fill', q:'Completa la domanda:', s:'___ I use your pen?', a:'Can', acc:[], e:'permesso → Can I.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Lei sa guidare.', a:'She can drive.', acc:[], e:''}
+  ]);
+})();
+(function(){
+  function add(lv,id,qs){ var L=window.CURRICULUM[lv]; if(!L) return; var t=L.find(function(x){return x.id===id;}); if(t) t.qz=t.qz.concat(qs); }
+  add('A2','a2-pastsimple',[
+    {ty:'fill', q:'Past simple irregolare:', s:'She ___ (have) a great time.', a:'had', acc:[], e:'have → had.'},
+    {ty:'fill', q:'Completa la domanda:', s:'Where ___ you go last summer?', a:'did', acc:[], e:'passato → did.'},
+    {ty:'fill', q:'Past simple regolare:', s:'They ___ (arrive) late.', a:'arrived', acc:[], e:'arrive → arrived.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I seen him last week.', a:'I saw him last week.', acc:[], e:'past simple di see → saw.'}
+  ]);
+  add('A2','a2-pastcont',[
+    {ty:'fill', q:'Completa:', s:'At 7 pm we ___ (have) dinner.', a:'were having', acc:[], e:'we → were + ing.'},
+    {ty:'fill', q:'Completa:', s:'While he ___ (drive), he saw an accident.', a:'was driving', acc:[], e:'azione in corso.'},
+    {ty:'fill', q:'Completa:', s:'What ___ you ___ (do) at midnight?', a:'were doing', acc:[], e:'you → were + ing.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Stavo leggendo quando hai chiamato.', a:'I was reading when you called.', acc:[], e:''}
+  ]);
+  add('A2','a2-presentperfect',[
+    {ty:'fill', q:'Completa (participio):', s:'I have ___ (finish) my work.', a:'finished', acc:[], e:'finish → finished.'},
+    {ty:'fill', q:'for o since?', s:'She has been here ___ Monday.', a:'since', acc:[], e:'punto di inizio → since.'},
+    {ty:'fill', q:'Completa:', s:'They ___ (not/eat) yet.', a:"haven't eaten", acc:['have not eaten'], e:'yet → present perfect negativo.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I have went to Paris.', a:'I have gone to Paris.', acc:[], e:'participio: gone.'}
+  ]);
+  add('A2','a2-comparatives',[
+    {ty:'fill', q:'Comparativo:', s:'This test is ___ (easy) than the last one.', a:'easier', acc:[], e:'easy → easier.'},
+    {ty:'fill', q:'Superlativo:', s:'It is the ___ (bad) film ever.', a:'worst', acc:[], e:'bad → worst.'},
+    {ty:'fill', q:'Comparativo (lungo):', s:'Health is ___ (important) than money.', a:'more important', acc:[], e:'lungo → more.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'È il libro più interessante.', a:'It is the most interesting book.', acc:["It's the most interesting book."], e:''}
+  ]);
+  add('A2','a2-future',[
+    {ty:'fill', q:'Completa (decisione sul momento):', s:"I'm cold. I ___ (close) the window.", a:'will close', acc:["'ll close"], e:'decisione → will.'},
+    {ty:'fill', q:'Completa (piano):', s:'They ___ (move) to Rome next year.', a:'are going to move', acc:[], e:'piano deciso → going to.'},
+    {ty:'fill', q:'Completa (previsione con prova):', s:'Look at the clouds — it ___ (rain).', a:'is going to rain', acc:[], e:'prova evidente → going to.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I am going to call you, I promise.', a:'I will call you, I promise.', acc:["I'll call you, I promise."], e:'promessa → will.'}
+  ]);
+  add('A2','a2-countable',[
+    {ty:'fill', q:'much o many?', s:'How ___ time do we have?', a:'much', acc:[], e:'time non numerabile → much.'},
+    {ty:'fill', q:'some o any?', s:'There aren\'t ___ tickets left.', a:'any', acc:[], e:'negativo → any.'},
+    {ty:'fill', q:'few o little?', s:'I have a ___ friends in London. (numerabile)', a:'few', acc:[], e:'numerabile → few.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ci sono molte persone.', a:'There are many people.', acc:['There are a lot of people.'], e:''}
+  ]);
+  add('A2','a2-usedto',[
+    {ty:'fill', q:'Completa:', s:'I ___ to go to the gym every day.', a:'used', acc:[], e:'used to.'},
+    {ty:'fill', q:'Domanda:', s:'___ you use to live here?', a:'Did', acc:[], e:'domanda → Did + use to.'},
+    {ty:'fill', q:'Negazione:', s:'He ___ to like vegetables.', a:"didn't use", acc:['did not use'], e:'did + use (senza -d).'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Una volta avevo un cane.', a:'I used to have a dog.', acc:[], e:''}
+  ]);
+  add('A2','a2-conditionals01',[
+    {ty:'fill', q:'Completa (1st):', s:'If you ___ (not/hurry), you will be late.', a:"don't hurry", acc:['do not hurry'], e:'dopo if → present.'},
+    {ty:'fill', q:'Completa (zero):', s:'Ice ___ (melt) if you heat it.', a:'melts', acc:[], e:'verità generale → present.'},
+    {ty:'fill', q:'Completa (1st):', s:'We ___ (go) to the beach if it is sunny.', a:'will go', acc:["'ll go"], e:'risultato futuro → will.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'If she will come, I will be happy.', a:'If she comes, I will be happy.', acc:[], e:'dopo if niente will.'}
+  ]);
+})();
+(function(){
+  function add(lv,id,qs){ var L=window.CURRICULUM[lv]; if(!L) return; var t=L.find(function(x){return x.id===id;}); if(t) t.qz=t.qz.concat(qs); }
+  add('B1','b1-pp-vs-past',[
+    {ty:'fill', q:'Completa:', s:'I ___ (not/see) her since June.', a:"haven't seen", acc:['have not seen'], e:'since → present perfect.'},
+    {ty:'fill', q:'Completa:', s:'We ___ (buy) this house in 2015.', a:'bought', acc:[], e:'tempo definito → past simple.'},
+    {ty:'fill', q:'Completa:', s:'___ you ever ___ (try) sushi?', a:'Have tried', acc:[], e:'esperienza → present perfect.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'She has called me yesterday.', a:'She called me yesterday.', acc:[], e:'yesterday → past simple.'}
+  ]);
+  add('B1','b1-conditionals2',[
+    {ty:'fill', q:'Completa:', s:'If I ___ (have) more money, I would travel.', a:'had', acc:[], e:'dopo if → past simple.'},
+    {ty:'fill', q:'Completa:', s:'If he studied, he ___ (pass).', a:'would pass', acc:["'d pass"], e:'would + base.'},
+    {ty:'fill', q:'Completa (be → were):', s:'If she ___ here, she would help.', a:'were', acc:['was'], e:'2nd cond. → were.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Se fossi in te, accetterei.', a:'If I were you, I would accept.', acc:["If I were you, I'd accept."], e:''}
+  ]);
+  add('B1','b1-passive',[
+    {ty:'fill', q:'Passivo presente:', s:'These shoes ___ (make) in Italy.', a:'are made', acc:[], e:'be + participio.'},
+    {ty:'fill', q:'Passivo passato:', s:'The letter ___ (send) yesterday.', a:'was sent', acc:[], e:'send → sent.'},
+    {ty:'fill', q:'Passivo presente (plurale):', s:'The rooms ___ (clean) every day.', a:'are cleaned', acc:[], e:'plurale → are cleaned.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'The book was wrote by him.', a:'The book was written by him.', acc:[], e:'participio: written.'}
+  ]);
+  add('B1','b1-reported',[
+    {ty:'fill', q:'Riporta:', s:'"I am happy." → She said she ___ happy.', a:'was', acc:[], e:'present → past.'},
+    {ty:'fill', q:'Riporta:', s:'"I can swim." → He said he ___ swim.', a:'could', acc:[], e:'can → could.'},
+    {ty:'fill', q:'Domanda riportata:', s:'"Do you like it?" → She asked if I ___ it.', a:'liked', acc:[], e:'present → past.'},
+    {ty:'tr', q:'Riporta in inglese:', it:'Disse che mi avrebbe chiamato.', a:'He said he would call me.', acc:['She said she would call me.'], e:''}
+  ]);
+  add('B1','b1-modals-obligation',[
+    {ty:'fill', q:'Consiglio:', s:'You look tired. You ___ rest.', a:'should', acc:['ought to'], e:'consiglio → should.'},
+    {ty:'fill', q:'Divieto:', s:'You ___ touch that, it\'s dangerous.', a:"mustn't", acc:['must not'], e:'divieto → mustn\'t.'},
+    {ty:'fill', q:'Non necessario:', s:"It's Sunday, so we ___ work.", a:"don't have to", acc:['do not have to'], e:'nessun obbligo → don\'t have to.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Devi indossare la cintura.', a:'You have to wear a seatbelt.', acc:['You must wear a seatbelt.'], e:''}
+  ]);
+  add('B1','b1-relative',[
+    {ty:'fill', q:'Completa:', s:'That\'s the shop ___ I bought my coat.', a:'where', acc:[], e:'luogo → where.'},
+    {ty:'fill', q:'Completa (persona):', s:'The doctor ___ treated me was kind.', a:'who', acc:['that'], e:'persona → who/that.'},
+    {ty:'fill', q:'Completa (possesso):', s:'A widow is a woman ___ husband has died.', a:'whose', acc:[], e:'possesso → whose.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'The book who I read was good.', a:'The book that I read was good.', acc:['The book which I read was good.'], e:'cosa → that/which.'}
+  ]);
+  add('B1','b1-gerinf',[
+    {ty:'fill', q:'Completa:', s:'She avoided ___ (talk) to him.', a:'talking', acc:[], e:'avoid + -ing.'},
+    {ty:'fill', q:'Completa:', s:'We hope ___ (see) you soon.', a:'to see', acc:[], e:'hope + to.'},
+    {ty:'fill', q:'Completa (dopo preposizione):', s:'He left without ___ (say) goodbye.', a:'saying', acc:[], e:'preposizione → -ing.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Ho deciso di restare.', a:'I decided to stay.', acc:[], e:'decide + to.'}
+  ]);
+})();
+(function(){
+  function add(lv,id,qs){ var L=window.CURRICULUM[lv]; if(!L) return; var t=L.find(function(x){return x.id===id;}); if(t) t.qz=t.qz.concat(qs); }
+  add('B2','b2-narrative',[
+    {ty:'fill', q:'Completa (past perfect):', s:'When we arrived, the guests ___ (already/leave).', a:'had already left', acc:[], e:'azione anteriore → had + participio.'},
+    {ty:'fill', q:'Completa (past perfect continuous):', s:'Her eyes were red; she ___ (cry).', a:'had been crying', acc:[], e:'durata fino a un punto.'},
+    {ty:'fill', q:'Completa (past continuous):', s:'I ___ (cook) when the lights went out.', a:'was cooking', acc:[], e:'sfondo in corso.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'After he had finish, he left.', a:'After he had finished, he left.', acc:[], e:'participio: finished.'}
+  ]);
+  add('B2','b2-conditionals3',[
+    {ty:'fill', q:'Completa (3rd):', s:'If you had asked, I ___ (help) you.', a:'would have helped', acc:[], e:'would have + participio.'},
+    {ty:'fill', q:'Completa (3rd):', s:'She ___ (not/fail) if she had revised.', a:"wouldn't have failed", acc:['would not have failed'], e:''},
+    {ty:'fill', q:'Completa (mixed):', s:'If I had saved money, I ___ (be) rich now.', a:'would be', acc:["'d be"], e:'passato → presente.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Se fossi partito prima, non avrei perso il treno.', a:'If I had left earlier, I would not have missed the train.', acc:["If I had left earlier, I wouldn't have missed the train."], e:''}
+  ]);
+  add('B2','b2-modals-deduction',[
+    {ty:'fill', q:'Completa (sicuro presente):', s:"He's not answering. He ___ (must) be busy.", a:'must', acc:[], e:'deduzione → must.'},
+    {ty:'fill', q:'Completa (passato, forse):', s:'They are late; they ___ (might/get) lost.', a:'might have got', acc:['might have gotten','may have got'], e:'might have + participio.'},
+    {ty:'fill', q:'Completa (impossibile passato):', s:'She ___ (can\'t/see) us; she was asleep.', a:"can't have seen", acc:['cannot have seen'], e:'can\'t have + participio.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'He must have went home.', a:'He must have gone home.', acc:[], e:'participio: gone.'}
+  ]);
+  add('B2','b2-future-forms',[
+    {ty:'fill', q:'Completa (future continuous):', s:'This time tomorrow I ___ (fly) to Madrid.', a:'will be flying', acc:["'ll be flying"], e:'azione in corso futura.'},
+    {ty:'fill', q:'Completa (future perfect):', s:'By next month they ___ (complete) the bridge.', a:'will have completed', acc:["'ll have completed"], e:'completata entro.'},
+    {ty:'fill', q:'Completa:', s:"Don't call at 8 — we ___ (have) dinner.", a:'will be having', acc:["'ll be having"], e:'future continuous.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Entro venerdì avrò finito il progetto.', a:'By Friday I will have finished the project.', acc:["By Friday I'll have finished the project."], e:''}
+  ]);
+  add('B2','b2-wish',[
+    {ty:'fill', q:'Completa (presente):', s:'I wish I ___ (have) a bigger house.', a:'had', acc:[], e:'desiderio presente → past simple.'},
+    {ty:'fill', q:'Completa (passato):', s:'I wish I ___ (study) medicine.', a:'had studied', acc:[], e:'rimpianto → past perfect.'},
+    {ty:'fill', q:'Completa (would):', s:'I wish it ___ (stop) raining.', a:'would stop', acc:[], e:'wish + would.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I wish I have more time.', a:'I wish I had more time.', acc:[], e:'wish + past simple.'}
+  ]);
+  add('B2','b2-relative-clauses',[
+    {ty:'fill', q:'Completa (non-defining):', s:'Rome, ___ is in Italy, is ancient.', a:'which', acc:[], e:'cosa, extra → which.'},
+    {ty:'fill', q:'Completa:', s:'The reason ___ he left is unclear.', a:'why', acc:[], e:'motivo → why.'},
+    {ty:'fill', q:'Completa (formale):', s:'The author, with ___ I worked, is famous.', a:'whom', acc:[], e:'dopo preposizione → whom.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Il film, che abbiamo visto ieri, era noioso.', a:'The film, which we saw yesterday, was boring.', acc:[], e:''}
+  ]);
+  add('B2','b2-phrasal',[
+    {ty:'fill', q:'Completa:', s:'I came ___ an old photo while cleaning. (trovai per caso)', a:'across', acc:[], e:'come across = imbattersi.'},
+    {ty:'fill', q:'Completa:', s:'Please carry ___ with your work. (continua)', a:'on', acc:[], e:'carry on = continuare.'},
+    {ty:'fill', q:'Completa:', s:'The meeting was called ___ . (annullata)', a:'off', acc:[], e:'call off = annullare.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'Mi sono preso cura dei bambini.', a:'I looked after the children.', acc:[], e:'look after = badare a.'}
+  ]);
+})();
+(function(){
+  function add(lv,id,qs){ var L=window.CURRICULUM[lv]; if(!L) return; var t=L.find(function(x){return x.id===id;}); if(t) t.qz=t.qz.concat(qs); }
+  add('C1','c1-inversion',[
+    {ty:'fill', q:'Completa (inversione):', s:'Seldom ___ (do) we get such a chance.', a:'do', acc:[], e:'Seldom do we...'},
+    {ty:'fill', q:'Completa:', s:'Hardly had we arrived ___ it started to rain.', a:'when', acc:[], e:'Hardly... when.'},
+    {ty:'fill', q:'Completa (inversione):', s:'Under no circumstances ___ (should) you sign it.', a:'should', acc:[], e:'inversione → should you.'},
+    {ty:'tr', q:'Traduci in inglese (inversione):', it:'Non solo è arrivato tardi, ma ha anche dimenticato i documenti.', a:'Not only did he arrive late, but he also forgot the documents.', acc:[], e:''}
+  ]);
+  add('C1','c1-cleft',[
+    {ty:'fill', q:'Completa (it-cleft):', s:'It ___ his attitude that annoyed me.', a:'was', acc:[], e:'It was his attitude that...'},
+    {ty:'fill', q:'Completa (wh-cleft):', s:'___ matters most is your health.', a:'What', acc:[], e:'wh-cleft → What.'},
+    {ty:'fill', q:'Completa:', s:'What he needs ___ a good rest.', a:'is', acc:[], e:'verbo singolare → is.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'It was John which broke it.', a:'It was John who broke it.', acc:['It was John that broke it.'], e:'persona → who/that.'}
+  ]);
+  add('C1','c1-participle',[
+    {ty:'fill', q:'Completa (-ing):', s:'___ (live) abroad, she speaks four languages.', a:'Having lived', acc:[], e:'anteriorità → Having + participio.'},
+    {ty:'fill', q:'Completa (passivo):', s:'___ (write) in haste, the letter had errors.', a:'Written', acc:[], e:'participio passato → Written.'},
+    {ty:'fill', q:'Completa:', s:'The students ___ (wait) outside were nervous.', a:'waiting', acc:[], e:'relativa ridotta → waiting.'},
+    {ty:'tr', q:'Traduci in inglese (participle):', it:'Non sapendo cosa fare, chiamai un amico.', a:'Not knowing what to do, I called a friend.', acc:[], e:''}
+  ]);
+  add('C1','c1-mixed-advanced',[
+    {ty:'fill', q:'Completa (inversione):', s:'___ I known earlier, I would have acted.', a:'Had', acc:[], e:'Had I known...'},
+    {ty:'fill', q:'Completa:', s:'___ you require assistance, contact us.', a:'Should', acc:[], e:'Should you require...'},
+    {ty:'fill', q:'Completa (inversione, be):', s:'___ I in charge, things would change.', a:'Were', acc:[], e:'Were I in charge...'},
+    {ty:'corr', q:"Correggi l'errore:", w:'Had I have known, I would have helped.', a:'Had I known, I would have helped.', acc:[], e:'Had + participio (known).'}
+  ]);
+  add('C1','c1-linking',[
+    {ty:'fill', q:'Completa:', s:'___ being expensive, the plan was approved. (nonostante)', a:'Despite', acc:['In spite of'], e:'Despite + -ing.'},
+    {ty:'fill', q:'Completa:', s:'He stayed calm; ___, he was furious inside. (tuttavia)', a:'nevertheless', acc:['nonetheless','however'], e:'contrasto avverbiale.'},
+    {ty:'fill', q:'Completa:', s:'You can come ___ that you behave. (a patto che)', a:'provided', acc:['providing'], e:'provided that.'},
+    {ty:'tr', q:'Traduci in inglese:', it:'A lei piace il caldo, mentre lui preferisce il freddo.', a:'She likes the heat, whereas he prefers the cold.', acc:['She likes the heat, while he prefers the cold.'], e:''}
+  ]);
+})();
+(function(){
+  function add(lv,id,qs){ var L=window.CURRICULUM[lv]; if(!L) return; var t=L.find(function(x){return x.id===id;}); if(t) t.qz=t.qz.concat(qs); }
+  add('C2','c2-idioms',[
+    {ty:'fill', q:'Completa l\'idioma:', s:'Let\'s bite the ___ and get it done. (affrontare il difficile)', a:'bullet', acc:[], e:'bite the bullet.'},
+    {ty:'fill', q:'Completa la collocation:', s:'I need to ___ a phone call.', a:'make', acc:[], e:'make a call.'},
+    {ty:'fill', q:'Completa l\'idioma:', s:'Losing that job was a blessing in ___ .', a:'disguise', acc:[], e:'a blessing in disguise.'},
+    {ty:'corr', q:"Correggi la collocation:", w:'She made a mistake doing research... I mean she made research.', a:'She did research.', acc:[], e:'do research, non make.'}
+  ]);
+  add('C2','c2-nuance',[
+    {ty:'fill', q:'Scegli la connotazione positiva:', s:'He is admirably ___ with money. (thrifty/stingy)', a:'thrifty', acc:[], e:'thrifty = positivo.'},
+    {ty:'fill', q:'Versione formale:', s:'Applicants are ___ to provide ID. (need → formale)', a:'required', acc:[], e:'require = formale.'},
+    {ty:'fill', q:'Scegli (positivo):', s:'Her ___ curiosity was charming. (childlike/childish)', a:'childlike', acc:[], e:'childlike = positivo.'},
+    {ty:'tr', q:'Traduci (registro formale):', it:'Vorremmo acquistare la proprietà.', a:'We would like to purchase the property.', acc:[], e:''}
+  ]);
+  add('C2','c2-subjunctive',[
+    {ty:'fill', q:'Completa (subjunctive):', s:'It is crucial that everyone ___ (be) informed.', a:'be', acc:[], e:'forma base → be.'},
+    {ty:'fill', q:'Completa:', s:'The board insisted that he ___ (step) down.', a:'step', acc:[], e:'subjunctive → forma base.'},
+    {ty:'fill', q:'Completa (espressione):', s:'___ it to say, the plan failed.', a:'Suffice', acc:[], e:'Suffice it to say.'},
+    {ty:'corr', q:"Correggi l'errore:", w:'I recommend that she goes now.', a:'I recommend that she go now.', acc:[], e:'subjunctive → go (base).'}
+  ]);
+  add('C2','c2-hedging',[
+    {ty:'fill', q:'Completa (hedging):', s:'The data ___ (may) suggest a trend.', a:'may', acc:['might','could'], e:'attenuazione → may suggest.'},
+    {ty:'fill', q:'Completa:', s:'It would ___ that sales have fallen.', a:'appear', acc:['seem'], e:'It would appear that.'},
+    {ty:'fill', q:'Completa:', s:'___ speaking, the project was a success. (a grandi linee)', a:'Broadly', acc:['Generally'], e:'broadly/generally speaking.'},
+    {ty:'tr', q:'Traduci in inglese (attenuato):', it:'In una certa misura, sono d\'accordo.', a:'To some extent, I agree.', acc:['To a certain extent, I agree.'], e:''}
+  ]);
+})();
+</script>
+
+
+<script>
+(function(){
+  const C = window.CURRICULUM;
+  const LEVELS = ['A1','A2','B1','B2','C1','C2'];
+  const LEVEL_NAME = {A1:'Principiante',A2:'Elementare',B1:'Intermedio',B2:'Intermedio-avanzato',C1:'Avanzato',C2:'Padronanza'};
+  const KEY = 'englishTrainer.v2';
+
+  let S = load();
+  S.level = S.level || 'A1';
+  S.tab = S.tab || 'today';
+  S.streak = S.streak || 0;
+  S.completed = S.completed || 0;        // lezioni completate
+  S.correctTotal = S.correctTotal || 0;  // risposte corrette totali
+  S.completedDates = S.completedDates || [];
+  S.lastCompleted = S.lastCompleted || null;
+  S.bestByTopic = S.bestByTopic || {};   // id -> miglior punteggio %
+
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY))||{}; } catch(e){ return {}; } }
+  function save(){ localStorage.setItem(KEY, JSON.stringify(S)); }
+  function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function norm(s){ return (s||'').toString().toLowerCase().replace(/[.,!?;:"'`’]/g,'').replace(/\s+/g,' ').trim(); }
+  function todayStr(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function dayIndex(){ const d=new Date(); const start=new Date(d.getFullYear(),0,0); return Math.floor((d-start)/86400000); }
+
+  const $view = document.getElementById('view');
+  function refreshStats(){
+    document.getElementById('streak').textContent = S.streak;
+    document.getElementById('done').textContent = S.completed;
+    document.getElementById('acc').textContent = S.correctTotal;
+  }
+
+  // ---- level selector ----
+  const seg = document.getElementById('levelSeg');
+  function paintLevel(){ seg.querySelectorAll('button').forEach(b=>b.classList.toggle('active', b.dataset.lv===S.level)); }
+  seg.querySelectorAll('button').forEach(b=> b.onclick = ()=>{ S.level=b.dataset.lv; save(); paintLevel(); render(); });
+
+  // ---- tabs ----
+  const tabsEl = document.getElementById('tabs');
+  function paintTabs(){ tabsEl.querySelectorAll('button').forEach(b=>b.classList.toggle('active', b.dataset.tab===S.tab)); }
+  tabsEl.querySelectorAll('button').forEach(b=> b.onclick = ()=>{ S.tab=b.dataset.tab; save(); paintTabs(); render(); });
+
+  document.getElementById('resetBtn').onclick = ()=>{
+    if(confirm('Vuoi azzerare tutti i progressi (streak, lezioni, punteggi)?')){
+      localStorage.removeItem(KEY); S = load();
+      S.level='A1'; S.tab='today'; S.streak=0; S.completed=0; S.correctTotal=0;
+      S.completedDates=[]; S.lastCompleted=null; S.bestByTopic={};
+      save(); paintLevel(); paintTabs(); refreshStats(); render();
+    }
+  };
+
+  // ---- quiz rendering ----
+  function renderQuestion(q, onAnswer){
+    const div = document.createElement('div'); div.className='q';
+    const labels = {mc:'Scelta multipla', fill:'Completa la frase', tr:'Traduzione IT→EN', corr:"Correggi l'errore"};
+    if(q.ty==='mc'){
+      div.innerHTML = `<div class="q-type">${labels.mc}</div><div class="q-text">${esc(q.q)}</div><div class="opts"></div><div class="fb"></div>`;
+      const opts=div.querySelector('.opts'), fb=div.querySelector('.fb');
+      q.o.forEach((opt,oi)=>{
+        const b=document.createElement('button'); b.className='opt'; b.textContent=opt;
+        b.onclick=()=>{ const all=opts.querySelectorAll('.opt'); all.forEach(x=>x.disabled=true);
+          const ok=oi===q.a; b.classList.add(ok?'correct':'wrong'); if(!ok&&all[q.a]) all[q.a].classList.add('correct');
+          fb.className='fb '+(ok?'ok':'no'); fb.innerHTML=(ok?'✅ Corretto! ':'❌ Non esatto. ')+(q.e?esc(q.e):'');
+          onAnswer(ok); };
+        opts.appendChild(b);
+      });
+    } else {
+      const shown = q.ty==='fill' ? esc((q.s||'').replace('___','______'))
+                  : q.ty==='tr'   ? esc(q.it||'') : esc(q.w||'');
+      const consegna = q.q || (q.ty==='tr'?'Traduci in inglese:':q.ty==='corr'?"Correggi l'errore:":'Completa:');
+      div.innerHTML = `<div class="q-type">${labels[q.ty]}</div><div class="muted" style="margin:2px 0 6px">${esc(consegna)}</div>
+        <div class="q-text">${shown}</div>
+        <input class="txt" type="text" placeholder="Scrivi la tua risposta…" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <div><button class="check-btn">Verifica</button></div><div class="fb"></div>`;
+      const input=div.querySelector('.txt'), btn=div.querySelector('.check-btn'), fb=div.querySelector('.fb');
+      const check=()=>{ if(btn.disabled) return;
+        const acc=[q.a].concat(q.acc||[]).map(norm).filter(Boolean);
+        const ok=acc.includes(norm(input.value));
+        input.disabled=true; btn.disabled=true; input.classList.add(ok?'correct':'wrong');
+        fb.className='fb '+(ok?'ok':'no');
+        fb.innerHTML=(ok?'✅ Corretto! ':'❌ Non esatto. ')+`<span class="sol">Risposta: ${esc(q.a)}</span>`+(q.e?' — '+esc(q.e):'');
+        onAnswer(ok); };
+      btn.onclick=check; input.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+    }
+    return div;
+  }
+
+  function runQuiz(container, questions, opts){
+    opts = opts || {};
+    let answered=0, correct=0;
+    const bar = document.createElement('div'); bar.className='progress-bar'; bar.innerHTML='<div></div>';
+    container.appendChild(bar);
+    const qWrap = document.createElement('div'); container.appendChild(qWrap);
+    const resWrap = document.createElement('div'); container.appendChild(resWrap);
+    questions.forEach(q=> qWrap.appendChild(renderQuestion(q, ok=>{
+      answered++; if(ok){ correct++; S.correctTotal++; refreshStats(); save(); }
+      bar.firstElementChild.style.width = Math.round(answered/questions.length*100)+'%';
+      if(answered===questions.length) finish();
+    })));
+    function finish(){
+      const pct=Math.round(correct/questions.length*100);
+      if(opts.topicId){ S.bestByTopic[opts.topicId]=Math.max(S.bestByTopic[opts.topicId]||0, pct); }
+      if(opts.markDaily){
+        const t=todayStr();
+        if(!S.completedDates.includes(t)){
+          S.completedDates.push(t); S.completed++;
+          const y=new Date(); y.setDate(y.getDate()-1);
+          const yStr=y.getFullYear()+'-'+String(y.getMonth()+1).padStart(2,'0')+'-'+String(y.getDate()).padStart(2,'0');
+          S.streak = (S.lastCompleted===yStr)?S.streak+1 : 1; S.lastCompleted=t;
+        }
+      }
+      save(); refreshStats();
+      const msg = pct>=80?'Ottimo lavoro! 🎉' : pct>=50?'Bel lavoro, continua così! 💪' : 'Buon inizio, la pratica rende perfetti! 🌱';
+      resWrap.innerHTML = `<div class="card center"><div class="result-score">${correct}/${questions.length}</div>
+        <p style="font-weight:700;margin:6px 0 2px">${msg}</p>
+        <p class="muted">${opts.markDaily?'Torna domani per la prossima lezione. 🔥':'Ottimo allenamento!'}</p>
+        <button class="ghost-btn" id="againBtn">Riprova</button></div>`;
+      resWrap.scrollIntoView({behavior:'smooth',block:'nearest'});
+      const ab=document.getElementById('againBtn'); if(ab) ab.onclick=render;
+    }
+  }
+
+  function lessonCard(topic){
+    const ex=(topic.ex||[]).map(e=>`<div class="ex-row"><span class="en">${esc(e[0])}</span><span class="it">${esc(e[1])}</span></div>`).join('');
+    return `<div class="card"><h2 class="lesson-title">${esc(topic.t)}</h2>
+      <div class="explain">${topic.g}</div>
+      ${ex?`<div class="examples"><h3>Esempi</h3>${ex}</div>`:''}</div>`;
+  }
+
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  // ---- views ----
+  function viewToday(){
+    const topics=C[S.level]; const topic=topics[dayIndex()%topics.length];
+    $view.innerHTML = `<div class="card" style="padding:14px 18px"><span class="tag">Lezione del giorno · ${S.level} ${LEVEL_NAME[S.level]}</span>
+      <div class="muted">Oggi studi un argomento, poi rispondi al quiz. Domani cambia argomento.</div></div>`;
+    const c=document.createElement('div'); c.innerHTML=lessonCard(topic); $view.appendChild(c);
+    const qc=document.createElement('div'); qc.className='card';
+    qc.innerHTML=`<p class="section-label">Quiz · ${topic.qz.length} domande</p>`;
+    $view.appendChild(qc);
+    runQuiz(qc, topic.qz, {markDaily:true, topicId:topic.id});
+  }
+
+  function viewGrammar(){
+    const topics=C[S.level];
+    $view.innerHTML = `<div class="card" style="padding:14px 18px"><span class="tag">Grammatica ${S.level}</span>
+      <div class="muted">${topics.length} argomenti. Tocca per aprire la spiegazione e gli esempi.</div></div>`;
+    topics.forEach(t=>{
+      const done=S.bestByTopic[t.id];
+      const item=document.createElement('div'); item.className='grammar-item';
+      const ex=(t.ex||[]).map(e=>`<div class="ex-row"><span class="en">${esc(e[0])}</span><span class="it">${esc(e[1])}</span></div>`).join('');
+      item.innerHTML=`<div class="grammar-head"><span>${esc(t.t)} ${done!=null?`<span class="badge-done">· quiz ${done}%</span>`:''}</span><span class="chev">▶</span></div>
+        <div class="grammar-body"><div class="explain">${t.g}</div>${ex?`<div class="examples"><h3>Esempi</h3>${ex}</div>`:''}
+        <div style="margin-top:12px"><button class="primary-btn" data-id="${t.id}">Esercitati su questo →</button></div></div>`;
+      item.querySelector('.grammar-head').onclick=()=>item.classList.toggle('open');
+      item.querySelector('.primary-btn').onclick=()=>{ S.tab='quiz'; S.quizTopic=t.id; save(); paintTabs(); render(); };
+      $view.appendChild(item);
+    });
+  }
+
+  function viewQuiz(){
+    const topics=C[S.level];
+    $view.innerHTML='';
+    const head=document.createElement('div'); head.className='card'; head.style.padding='16px 18px';
+    head.innerHTML=`<span class="tag">Esercizi ${S.level}</span><div class="muted">Scegli un argomento o allenati con un mix di tutte le domande del livello.</div>
+      <div class="topic-picker" id="picker"></div>`;
+    $view.appendChild(head);
+    const picker=head.querySelector('#picker');
+    const cur = S.quizTopic || 'MIX';
+    const mk=(id,label)=>{ const c=document.createElement('button'); c.className='chip'+(cur===id?' active':''); c.textContent=label;
+      c.onclick=()=>{ S.quizTopic=id; save(); render(); }; return c; };
+    picker.appendChild(mk('MIX','🎲 Mix livello'));
+    topics.forEach(t=> picker.appendChild(mk(t.id, t.t)));
+    const qc=document.createElement('div'); qc.className='card'; $view.appendChild(qc);
+    if(cur==='MIX'){
+      let all=[]; topics.forEach(t=> t.qz.forEach(q=> all.push(q)));
+      const sel=shuffle(all).slice(0, Math.min(12, all.length));
+      qc.innerHTML=`<p class="section-label">Mix · ${sel.length} domande da tutti gli argomenti ${S.level}</p>`;
+      runQuiz(qc, sel, {});
+    } else {
+      const t=topics.find(x=>x.id===cur)||topics[0];
+      qc.innerHTML=`<p class="section-label">${esc(t.t)} · ${t.qz.length} domande</p>`;
+      runQuiz(qc, t.qz, {topicId:t.id});
+    }
+  }
+
+  function render(){
+    refreshStats();
+    if(S.tab==='today') viewToday();
+    else if(S.tab==='grammar') viewGrammar();
+    else viewQuiz();
+  }
+
+  paintLevel(); paintTabs(); render();
+})();
+</script>
+</body>
+</html>
