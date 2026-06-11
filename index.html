@@ -1086,10 +1086,14 @@ window.CURRICULUM.C2 = [
       const msg = pct>=80?'Ottimo lavoro! 🎉' : pct>=50?'Bel lavoro, continua così! 💪' : 'Buon inizio, la pratica rende perfetti! 🌱';
       resWrap.innerHTML = `<div class="card center"><div class="result-score">${correct}/${questions.length}</div>
         <p style="font-weight:700;margin:6px 0 2px">${msg}</p>
-        <p class="muted">${opts.markDaily?'Torna domani per la prossima lezione. 🔥':'Ottimo allenamento!'}</p>
-        <button class="ghost-btn" id="againBtn">Riprova</button></div>`;
+        <p class="muted">${opts.markDaily?'Hai completato la lezione di oggi. 🔥':'Ottimo allenamento!'}</p>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:4px">
+          <button class="ghost-btn" id="againBtn">Riprova</button>
+          ${opts.onNext?'<button class="primary-btn" id="nextBtn">Chiudi e carica una nuova lezione →</button>':''}
+        </div></div>`;
       resWrap.scrollIntoView({behavior:'smooth',block:'nearest'});
       const ab=document.getElementById('againBtn'); if(ab) ab.onclick=render;
+      const nb=document.getElementById('nextBtn'); if(nb) nb.onclick=opts.onNext;
     }
   }
 
@@ -1103,15 +1107,22 @@ window.CURRICULUM.C2 = [
   function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
   // ---- views ----
+  function nextLesson(){ S.dailyOffset=(S.dailyOffset||0)+1; save(); viewToday(); window.scrollTo({top:0,behavior:'smooth'}); }
+
   function viewToday(){
-    const topics=C[S.level]; const topic=topics[dayIndex()%topics.length];
+    const topics=C[S.level]; const off=S.dailyOffset||0;
+    const topic=topics[((dayIndex()+off)%topics.length+topics.length)%topics.length];
     $view.innerHTML = `<div class="card" style="padding:14px 18px"><span class="tag">Lezione del giorno · ${S.level} ${LEVEL_NAME[S.level]}</span>
-      <div class="muted">Oggi studi un argomento, poi rispondi al quiz. Domani cambia argomento.</div></div>`;
+      <div class="muted">Studia l'argomento, poi rispondi al quiz. Puoi chiudere e caricarne una nuova quando vuoi.</div></div>`;
     const c=document.createElement('div'); c.innerHTML=lessonCard(topic); $view.appendChild(c);
     const qc=document.createElement('div'); qc.className='card';
     qc.innerHTML=`<p class="section-label">Quiz · ${topic.qz.length} domande</p>`;
     $view.appendChild(qc);
-    runQuiz(qc, topic.qz, {markDaily:true, topicId:topic.id});
+    runQuiz(qc, topic.qz, {markDaily:true, topicId:topic.id, onNext:nextLesson});
+    const nav=document.createElement('div'); nav.className='center'; nav.style.margin='4px 0 8px';
+    nav.innerHTML='<button class="ghost-btn" id="skipBtn">Chiudi e carica una nuova lezione →</button>';
+    $view.appendChild(nav);
+    nav.querySelector('#skipBtn').onclick=nextLesson;
   }
 
   function viewGrammar(){
